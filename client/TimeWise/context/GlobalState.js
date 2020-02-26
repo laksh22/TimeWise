@@ -4,7 +4,12 @@ import AppReducer from './AppReducer';
 // Initial state
 const initialState = {
   tasks: {},
-  task: {}
+  task: {
+    type: 'class',
+    location: 'LT4',
+    day: 'Tuesday',
+    time: '2:30PM'
+  }
 };
 
 // Create context
@@ -17,7 +22,8 @@ export const GlobalProvider = ({ children }) => {
   return (
     <GlobalContext.Provider
       value={{
-        tasks: state.tasks
+        tasks: state.tasks,
+        task: state.task
       }}
     >
       {children}
