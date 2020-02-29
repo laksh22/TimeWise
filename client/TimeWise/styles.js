@@ -1,28 +1,4 @@
-<<<<<<< HEAD
-import { StyleSheet } from 'react-native';
-
-const styles = StyleSheet.create({
-  introPage: {
-    backgroundColor: '#000000',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1
-  },
-  background: {
-    backgroundColor: '#121212',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1
-  },
-  text: {
-    color: '#FFFFFF'
-  }
-});
-
-export default styles;
-||||||| merged common ancestors
-=======
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, StatusBar } from 'react-native';
 
 const styles = StyleSheet.create({
   // Backgrounds
@@ -41,8 +17,21 @@ const styles = StyleSheet.create({
   // Text
   headingText: {
     color: '#FFFFFF',
+    fontSize: 30
+  },
+  lightHeadingText: {
+    color: '#FFFFFF',
+    fontWeight: '100',
+    fontSize: 30
+  },
+  boldHeadingText: {
+    color: '#FFFFFF',
     fontWeight: 'bold',
     fontSize: 30
+  },
+  mediumText: {
+    color: '#FFFFFF',
+    fontSize: 20
   },
   text: {
     color: '#FFFFFF'
@@ -83,6 +72,37 @@ const styles = StyleSheet.create({
     borderColor: '#FFC700',
     paddingHorizontal: 5
   },
+  toolbar: {
+    alignSelf: 'stretch',
+    paddingTop: 10,
+    paddingHorizontal: 10,
+    backgroundColor: '#2B2B2B',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    position: 'absolute',
+    top: 0,
+    flex: 1,
+    right: 0,
+    left: 0,
+    paddingTop: StatusBar.currentHeight
+  },
+  task: {
+    alignSelf: 'stretch',
+    paddingTop: 10,
+    paddingHorizontal: 10,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    borderBottomColor: 'rgba(204, 204, 204, 0.6)',
+    borderBottomWidth: 1,
+    borderTopColor: 'rgba(204, 204, 204, 0.6)',
+    borderTopWidth: 1
+  },
+  //Direction
+  row: {
+    flexDirection: 'row'
+  },
   // Icons
   bigIcon: {
     width: 20,
@@ -95,4 +115,3 @@ const styles = StyleSheet.create({
 });
 
 export default styles;
->>>>>>> Create UI of task description modal

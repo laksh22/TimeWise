@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { Modal, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import { GlobalContext } from '../context/GlobalState';
-import styles from '../styles';
+import { GlobalContext } from '../../context/GlobalState';
+import styles from '../../styles';
 import Tag from './Tag';
 
 const TaskOverviewModal = () => {
@@ -17,7 +17,7 @@ const TaskOverviewModal = () => {
             <Icon name="pencil" color="white" size={25}></Icon>
             <Icon name="trash" color="white" size={25}></Icon>
           </View>
-          <Text style={styles.headingText}>CZ3002 Lecture</Text>
+          <Text style={styles.boldHeadingText}>CZ3002 Lecture</Text>
           <View style={styles.container}>
             <Text style={styles.text}>Type:</Text>
             <Tag type={task.type}></Tag>

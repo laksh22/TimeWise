@@ -3,9 +3,18 @@ import AppReducer from './AppReducer';
 
 // Initial state
 const initialState = {
-  tasks: {},
+  tasks: [
+    {
+      type: 'class',
+      name: 'CZ3002 Lecture',
+      location: 'LT4',
+      day: 'Tuesday',
+      time: '2:30PM'
+    }
+  ],
   task: {
     type: 'class',
+    name: 'CZ3002 Lecture',
     location: 'LT4',
     day: 'Tuesday',
     time: '2:30PM'
