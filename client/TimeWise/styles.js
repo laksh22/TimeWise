@@ -1,28 +1,4 @@
-<<<<<<< HEAD
-import { StyleSheet } from 'react-native';
-
-const styles = StyleSheet.create({
-  introPage: {
-    backgroundColor: '#000000',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1
-  },
-  background: {
-    backgroundColor: '#121212',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1
-  },
-  text: {
-    color: '#FFFFFF'
-  }
-});
-
-export default styles;
-||||||| merged common ancestors
-=======
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, StatusBar } from 'react-native';
 
 const styles = StyleSheet.create({
   // Backgrounds
@@ -36,13 +12,27 @@ const styles = StyleSheet.create({
     backgroundColor: '#121212',
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 1
+    flex: 1,
+    flexDirection: 'column'
   },
   // Text
   headingText: {
     color: '#FFFFFF',
+    fontSize: 30
+  },
+  lightHeadingText: {
+    color: '#FFFFFF',
+    fontWeight: '100',
+    fontSize: 30
+  },
+  boldHeadingText: {
+    color: '#FFFFFF',
     fontWeight: 'bold',
     fontSize: 30
+  },
+  mediumText: {
+    color: '#FFFFFF',
+    fontSize: 20
   },
   text: {
     color: '#FFFFFF'
@@ -53,7 +43,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     width: Dimensions.get('window').width * 0.7,
     alignItems: 'center',
-    padding: 10
+    padding: 10,
+    marginHorizontal: (Dimensions.get('window').width * 0.3) / 2,
+    marginVertical: Dimensions.get('window').height / 4
   },
   container: {
     margin: 5,
@@ -83,6 +75,49 @@ const styles = StyleSheet.create({
     borderColor: '#FFC700',
     paddingHorizontal: 5
   },
+  toolbar: {
+    alignSelf: 'stretch',
+    marginTop: StatusBar.currentHeight,
+    paddingHorizontal: 10,
+    backgroundColor: '#2B2B2B',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    top: 0,
+    right: 0,
+    left: 0,
+    paddingVertical: 10
+  },
+  task: {
+    alignSelf: 'stretch',
+    paddingTop: 10,
+    paddingHorizontal: 10,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    borderBottomColor: 'rgba(204, 204, 204, 0.6)',
+    borderBottomWidth: 1
+  },
+  dayHeading: {
+    flexDirection: 'row',
+    alignSelf: 'stretch',
+    borderBottomColor: 'rgba(204, 204, 204, 0.6)',
+    borderBottomWidth: 1,
+    marginTop: 20,
+    justifyContent: 'space-between'
+  },
+  dayHeadingDetails: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start'
+  },
+  tasksList: {
+    alignSelf: 'stretch'
+  },
+  //Direction
+  row: {
+    flexDirection: 'row'
+  },
   // Icons
   bigIcon: {
     width: 20,
@@ -95,4 +130,3 @@ const styles = StyleSheet.create({
 });
 
 export default styles;
->>>>>>> Create UI of task description modal

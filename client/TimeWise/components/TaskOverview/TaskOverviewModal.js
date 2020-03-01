@@ -1,23 +1,39 @@
 import React, { useContext } from 'react';
-import { Modal, Text, View } from 'react-native';
+import { Modal, Text, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import { GlobalContext } from '../context/GlobalState';
-import styles from '../styles';
-import Tag from './Tag';
+import { GlobalContext } from '../../context/GlobalState';
+import styles from '../../styles';
+import Tag from '../Misc/Tag';
 
-const TaskOverviewModal = () => {
+const TaskOverviewModal = props => {
+  const { visible, closeModal } = props;
+
   const { task } = useContext(GlobalContext);
 
   return (
-    <View>
-      <Modal animationType="slide" transparent={true} visible={true}>
+    <Modal
+      animationType="fade"
+      transparent={true}
+      visible={visible}
+      visible={visible}
+      onRequestClose={() => {
+        closeModal();
+      }}
+    >
+      <TouchableOpacity
+        style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+        activeOpacity={0}
+        onPressOut={() => {
+          closeModal();
+        }}
+      >
         <View style={styles.modal}>
           <View style={styles.buttonRow}>
             <Icon name="pencil" color="white" size={25}></Icon>
             <Icon name="trash" color="white" size={25}></Icon>
           </View>
-          <Text style={styles.headingText}>CZ3002 Lecture</Text>
+          <Text style={styles.boldHeadingText}>CZ3002 Lecture</Text>
           <View style={styles.container}>
             <Text style={styles.text}>Type:</Text>
             <Tag type={task.type}></Tag>
@@ -35,8 +51,8 @@ const TaskOverviewModal = () => {
             <Text style={styles.text}>{task.time}</Text>
           </View>
         </View>
-      </Modal>
-    </View>
+      </TouchableOpacity>
+    </Modal>
   );
 };
 
