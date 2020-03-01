@@ -12,7 +12,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#121212',
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 1
+    flex: 1,
+    flexDirection: 'column'
   },
   // Text
   headingText: {
@@ -42,7 +43,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     width: Dimensions.get('window').width * 0.7,
     alignItems: 'center',
-    padding: 10
+    padding: 10,
+    marginHorizontal: (Dimensions.get('window').width * 0.3) / 2,
+    marginVertical: Dimensions.get('window').height / 4
   },
   container: {
     margin: 5,
@@ -74,18 +77,16 @@ const styles = StyleSheet.create({
   },
   toolbar: {
     alignSelf: 'stretch',
-    paddingTop: 10,
+    marginTop: StatusBar.currentHeight,
     paddingHorizontal: 10,
     backgroundColor: '#2B2B2B',
     alignItems: 'center',
     justifyContent: 'flex-start',
     flexDirection: 'row',
-    position: 'absolute',
     top: 0,
-    flex: 1,
     right: 0,
     left: 0,
-    paddingTop: StatusBar.currentHeight
+    paddingVertical: 10
   },
   task: {
     alignSelf: 'stretch',
@@ -95,9 +96,23 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     borderBottomColor: 'rgba(204, 204, 204, 0.6)',
+    borderBottomWidth: 1
+  },
+  dayHeading: {
+    flexDirection: 'row',
+    alignSelf: 'stretch',
+    borderBottomColor: 'rgba(204, 204, 204, 0.6)',
     borderBottomWidth: 1,
-    borderTopColor: 'rgba(204, 204, 204, 0.6)',
-    borderTopWidth: 1
+    marginTop: 20,
+    justifyContent: 'space-between'
+  },
+  dayHeadingDetails: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start'
+  },
+  tasksList: {
+    alignSelf: 'stretch'
   },
   //Direction
   row: {

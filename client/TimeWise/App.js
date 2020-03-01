@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 
 import { GlobalProvider } from './context/GlobalState';
 import styles from './styles';
-import TasksPage from './components/Tasks/TasksPage';
+import TasksPage from './components/TasksPage/TasksPage';
 
 const App = () => {
   return (
