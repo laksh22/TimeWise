@@ -1,22 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import { GlobalContext } from '../../context/GlobalState';
 import Tag from '../Misc/Tag';
 import styles from '../../styles';
 import TaskOverviewModal from '../TaskOverview/TaskOverviewModal';
 
 const Task = props => {
+  const { changeCurrentTask, completeTask } = useContext(GlobalContext);
+
   const { type, location, day, time, name } = props.task;
 
   const [visible, toggleVisible] = useState(false);
 
   return (
-    <TouchableWithoutFeedback onPress={() => toggleVisible(true)}>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        changeCurrentTask(name);
+        toggleVisible(true);
+      }}
+    >
       <View style={styles.task}>
         <View style={styles.row}>
-          <CheckBox uncheckedIcon="circle-o" />
+          <CheckBox
+            uncheckedIcon="circle-o"
+            onPress={() => {
+              completeTask(name);
+            }}
+          />
           <View>
             <Text style={styles.mediumText}>{name}</Text>
             <View style={styles.row}>

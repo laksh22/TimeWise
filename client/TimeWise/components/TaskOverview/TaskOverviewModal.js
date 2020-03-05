@@ -1,5 +1,11 @@
 import React, { useContext } from 'react';
-import { Modal, Text, View, TouchableOpacity } from 'react-native';
+import {
+  Modal,
+  Text,
+  View,
+  TouchableOpacity,
+  TouchableWithoutFeedback
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { GlobalContext } from '../../context/GlobalState';
@@ -9,7 +15,7 @@ import Tag from '../Misc/Tag';
 const TaskOverviewModal = props => {
   const { visible, closeModal } = props;
 
-  const { task } = useContext(GlobalContext);
+  const { task, deleteTask } = useContext(GlobalContext);
 
   return (
     <Modal
@@ -30,10 +36,17 @@ const TaskOverviewModal = props => {
       >
         <View style={styles.modal}>
           <View style={styles.buttonRow}>
-            <Icon name="pencil" color="white" size={25}></Icon>
-            <Icon name="trash" color="white" size={25}></Icon>
+            <TouchableWithoutFeedback
+              onPress={() => alert('TODO: Direct to Edit Link')}
+            >
+              <Icon name="pencil" color="white" size={25}></Icon>
+            </TouchableWithoutFeedback>
+
+            <TouchableWithoutFeedback onPress={() => deleteTask(task.name)}>
+              <Icon name="trash" color="white" size={25}></Icon>
+            </TouchableWithoutFeedback>
           </View>
-          <Text style={styles.boldHeadingText}>CZ3002 Lecture</Text>
+          <Text style={styles.boldHeadingText}>{task.name}</Text>
           <View style={styles.container}>
             <Text style={styles.text}>Type:</Text>
             <Tag type={task.type}></Tag>
