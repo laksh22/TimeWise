@@ -23,7 +23,7 @@ const AddTaskModal = props => {
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
-  const [time, setTime] = useState("Time");
+  const [time, setTime] = useState('');
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -33,12 +33,15 @@ const AddTaskModal = props => {
     setDatePickerVisibility(false);
   };
 
-  const handleConfirm = date => {
-    console.warn("A date has been picked: ", date);
-    setTime(date);
+  const handleConfirm = dateTime => {
+    var hours = dateTime.getHours();
+    var minutes = dateTime.getMinutes();
+    var ampm = hours > 12 ? 'PM' : 'AM';
+
+    setTime(`${hours}:${minutes}${ampm}`);
+    console.warn(`${hours}:${minutes}${ampm}`);
     hideDatePicker();
   };
-
 
   return (
     <Modal
@@ -60,20 +63,19 @@ const AddTaskModal = props => {
         <View style={styles.modal}>
           <View style={styles.buttonRow}>
             <Text style={styles.boldHeadingText}>Add Task</Text>
-            <TouchableWithoutFeedback onPress={() => {
-              closeModal();
-            }}>
+            <TouchableWithoutFeedback
+              onPress={() => {
+                closeModal();
+              }}
+            >
               <Icon name="times" color="white" size={25}></Icon>
             </TouchableWithoutFeedback>
           </View>
           <View style={styles.container}>
-            <TextInput
-              placeholder="Task Name"
-              style={styles.text}
-            />
+            <TextInput placeholder="Task Name" style={styles.text} />
           </View>
           <View style={styles.container}>
-          <Text style={styles.text}></Text>
+            <Text style={styles.text}></Text>
           </View>
           <View>
             <Button title="Select Time" onPress={showDatePicker} />
