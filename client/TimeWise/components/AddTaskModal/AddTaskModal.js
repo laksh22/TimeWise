@@ -21,26 +21,22 @@ const AddTaskModal = props => {
 
   const { task, deleteTask } = useContext(GlobalContext);
 
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
 
   const [time, setTime] = useState('');
 
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
+  const toggleTimePicker = () => {
+    setTimePickerVisibility(!isTimePickerVisible);
   };
 
   const handleConfirm = dateTime => {
+    toggleTimePicker();
+
     var hours = dateTime.getHours();
     var minutes = dateTime.getMinutes();
     var ampm = hours > 12 ? 'PM' : 'AM';
 
     setTime(`${hours}:${minutes}${ampm}`);
-    console.warn(`${hours}:${minutes}${ampm}`);
-    hideDatePicker();
   };
 
   return (
@@ -77,14 +73,15 @@ const AddTaskModal = props => {
           <View style={styles.container}>
             <Text style={styles.text}></Text>
           </View>
+          <Text>{time}</Text>
           <View>
-            <Button title="Select Time" onPress={showDatePicker} />
+            <Button title="Select Time" onPress={toggleTimePicker} />
             <DateTimePicker
-              isVisible={isDatePickerVisible}
+              isVisible={isTimePickerVisible}
               mode="time"
               is24Hour={false}
               onConfirm={handleConfirm}
-              onCancel={hideDatePicker}
+              onCancel={toggleTimePicker}
             />
           </View>
         </View>
