@@ -5,7 +5,7 @@ import Toolbar from './Toolbar';
 import styles from '../../styles';
 import DayTasks from './DayTasks';
 
-const TasksPage = () => {
+const TasksPage = ({ navigation }) => {
   const dayNames = [
     'Sunday',
     'Monday',
@@ -79,7 +79,7 @@ const TasksPage = () => {
 
   return (
     <View style={styles.background}>
-      <Toolbar></Toolbar>
+      <Toolbar navigation={navigation}></Toolbar>
       <FlatList
         style={styles.tasksList}
         data={days}

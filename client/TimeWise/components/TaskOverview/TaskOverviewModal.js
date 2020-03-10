@@ -22,7 +22,6 @@ const TaskOverviewModal = props => {
       animationType="fade"
       transparent={true}
       visible={visible}
-      visible={visible}
       onRequestClose={() => {
         closeModal();
       }}
