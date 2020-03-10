@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import styles from '../../styles';
+import { GlobalContext } from '../../context/GlobalState';
+import AddTaskModal from '../AddTaskModal/AddTaskModal';
+
 
 const DayHeading = props => {
   const { day, date } = props;
+  const [visible, toggleVisible] = useState(false);
+
 
   return (
     <View style={styles.dayHeading}>
@@ -15,15 +20,21 @@ const DayHeading = props => {
       </View>
       <TouchableWithoutFeedback
         onPress={() => {
-          alert('TODO: Direct to Add New Task');
+          toggleVisible(true);
         }}
       >
-        <Icon
-          name="plus-circle"
-          color="white"
-          size={18}
-          style={{ marginRight: 20 }}
-        ></Icon>
+        <View>
+          <Icon
+            name="plus-circle"
+            color="white"
+            size={18}
+            style={{ marginRight: 20 }}
+          ></Icon>
+          <AddTaskModal
+            visible={visible}
+            closeModal={() => toggleVisible(false)}
+          ></AddTaskModal>
+        </View>
       </TouchableWithoutFeedback>
     </View>
   );

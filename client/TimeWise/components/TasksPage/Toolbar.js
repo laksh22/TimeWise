@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import styles from '../../styles';
 
-Toolbar = () => {
+const Toolbar = () => {
   return (
     <View style={styles.toolbar}>
       <TouchableWithoutFeedback
