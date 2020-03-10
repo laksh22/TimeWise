@@ -23,6 +23,8 @@ const AddTaskModal = props => {
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
+  const [time, setTime] = useState("Time");
+
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
@@ -33,6 +35,7 @@ const AddTaskModal = props => {
 
   const handleConfirm = date => {
     console.warn("A date has been picked: ", date);
+    setTime(date);
     hideDatePicker();
   };
 
@@ -70,7 +73,7 @@ const AddTaskModal = props => {
             />
           </View>
           <View style={styles.container}>
-            <Text style={styles.text}>Time</Text>
+          <Text style={styles.text}></Text>
           </View>
           <View>
             <Button title="Select Time" onPress={showDatePicker} />
