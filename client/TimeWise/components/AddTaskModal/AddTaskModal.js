@@ -19,11 +19,19 @@ import Tag from '../Misc/Tag';
 const AddTaskModal = props => {
   const { visible, closeModal } = props;
 
-  const { task, deleteTask } = useContext(GlobalContext);
+  const { task, addNewTask } = useContext(GlobalContext);
 
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
 
-  const [time, setTime] = useState('');
+  const [time, setTime] = useState('Time');
+
+  const test = {
+    type: 'class',
+    name: 'CZ3002 Lecture',
+    location: 'LT4',
+    day: 'Tuesday',
+    time: '2:30PM'
+  };
 
   const toggleTimePicker = () => {
     setTimePickerVisibility(!isTimePickerVisible);
@@ -71,10 +79,9 @@ const AddTaskModal = props => {
             <TextInput placeholder="Task Name" style={styles.text} />
           </View>
           <View style={styles.container}>
-            <Text style={styles.text}></Text>
+            <Text style={styles.text}>{time}</Text>
           </View>
-          <Text>{time}</Text>
-          <View>
+          <View style={styles.buttonRow}>
             <Button title="Select Time" onPress={toggleTimePicker} />
             <DateTimePicker
               isVisible={isTimePickerVisible}
@@ -83,6 +90,14 @@ const AddTaskModal = props => {
               onConfirm={handleConfirm}
               onCancel={toggleTimePicker}
             />
+            <TouchableWithoutFeedback
+              onPress={() => {
+                addNewTask(test);
+                closeModal();
+              }}
+            >
+              <Icon name="paper-plane" color="white" size={25}></Icon>
+            </TouchableWithoutFeedback>
           </View>
         </View>
       </TouchableOpacity>

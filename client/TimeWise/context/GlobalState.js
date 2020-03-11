@@ -71,6 +71,20 @@ export const GlobalProvider = ({ children }) => {
     });
   };
 
+  const addNewTask = task => {
+    dispatch({
+      type: 'ADD_NEW_TASK',
+      payload: task
+    });
+  };
+
+  const editTask = task => {
+    dispatch({
+      type: 'EDIT_TASK',
+      payload: task
+    });
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -78,7 +92,9 @@ export const GlobalProvider = ({ children }) => {
         task: state.task,
         changeCurrentTask: changeCurrentTask,
         deleteTask: deleteTask,
-        completeTask: completeTask
+        completeTask: completeTask,
+        addNewTask: addNewTask,
+        editTask: editTask
       }}
     >
       {children}

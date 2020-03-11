@@ -13,5 +13,11 @@ export default (state, action) => {
       };
     default:
       return state;
+    case 'ADD_NEW_TASK':
+      return {
+        ...state,
+        tasks: state.tasks.push(action.payload)
+      };
+    case 'EDIT_TASK':
   }
 };
