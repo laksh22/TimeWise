@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "2.1.0",
     "@react-native-community/masked-view": "^0.1.7",
     "@react-navigation/native": "^5.0.9",
     "@react-navigation/stack": "^5.1.1",
@@ -17,6 +18,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
     "react-native-elements": "^1.2.7",
     "react-native-gesture-handler": "^1.6.0",
+    "react-native-modal-datetime-picker": "^8.5.1",
     "react-native-reanimated": "^1.7.0",
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.2.0",
