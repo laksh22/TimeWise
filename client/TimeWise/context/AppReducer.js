@@ -21,5 +21,10 @@ export default (state, action) => {
       };
     default:
       return state;
+    case 'EDIT_TASK':
+      console.log(action.payload);
+      return {
+        ...state,
+      };
   }
 };

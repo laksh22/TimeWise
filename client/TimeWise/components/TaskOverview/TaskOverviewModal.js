@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Modal,
   Text,
@@ -11,9 +11,11 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { GlobalContext } from '../../context/GlobalState';
 import styles from '../../styles';
 import Tag from '../Misc/Tag';
+import EditTaskModal from '../EditTaskModal/EditTaskModal';
 
 const TaskOverviewModal = props => {
   const { visible, closeModal } = props;
+  const [editTaskvisible, toggleVisible] = useState(false);
 
   const { task, deleteTask } = useContext(GlobalContext);
 
@@ -36,9 +38,17 @@ const TaskOverviewModal = props => {
         <View style={styles.modal}>
           <View style={styles.buttonRow}>
             <TouchableWithoutFeedback
-              onPress={() => alert('TODO: Direct to Edit Link')}
+              onPress={() => {
+                toggleVisible(true);
+              }}
             >
-              <Icon name="pencil" color="white" size={25}></Icon>
+              <View>
+                <Icon name="pencil" color="white" size={25}></Icon>
+                <EditTaskModal
+                  visible={editTaskvisible}
+                  closeModal={() => toggleVisible(false)}
+                ></EditTaskModal>
+              </View>
             </TouchableWithoutFeedback>
 
             <TouchableWithoutFeedback onPress={() => deleteTask(task.name)}>
