@@ -17,20 +17,25 @@ import styles from '../../styles';
 import Tag from '../Misc/Tag';
 
 const AddTaskModal = props => {
-  const { visible, closeModal } = props;
+  const { visible, closeModal, day } = props;
 
   const { task, addNewTask } = useContext(GlobalContext);
 
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
 
   const [time, setTime] = useState('Time');
+  const [name, setName] = useState('Task Name');
+
+  const onChange = (nameValue) => setName(nameValue);
+  
+  var testTime = '';
 
   const test = {
-    type: 'class',
-    name: 'CZ3002 Lecture',
-    location: 'LT4',
-    day: 'Tuesday',
-    time: '2:30PM'
+    type: 'task',
+    name: 'Test',
+    location: 'Prime',
+    day: 'Wednesday',
+    get prop5() {return testTime;}
   };
 
   const toggleTimePicker = () => {
@@ -43,7 +48,7 @@ const AddTaskModal = props => {
     var hours = dateTime.getHours();
     var minutes = dateTime.getMinutes();
     var ampm = hours > 12 ? 'PM' : 'AM';
-
+    var newTime = 
     setTime(`${hours}:${minutes}${ampm}`);
   };
 
@@ -76,7 +81,7 @@ const AddTaskModal = props => {
             </TouchableWithoutFeedback>
           </View>
           <View style={styles.container}>
-            <TextInput placeholder="Task Name" style={styles.text} />
+            <TextInput placeholder='Task Name' style={styles.text} onChangeText={onChange}/>
           </View>
           <View style={styles.container}>
             <Text style={styles.text}>{time}</Text>
@@ -92,6 +97,11 @@ const AddTaskModal = props => {
             />
             <TouchableWithoutFeedback
               onPress={() => {
+                console.log(test.time);
+                test.name = name;
+                test.time = time;
+                test.day = day;
+                console.log(test.time);
                 addNewTask(test);
                 closeModal();
               }}

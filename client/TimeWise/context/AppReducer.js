@@ -11,13 +11,15 @@ export default (state, action) => {
         ...state,
         tasks: state.tasks.filter(task => task.name != action.payload)
       };
-    default:
-      return state;
     case 'ADD_NEW_TASK':
+      console.log(action.payload);
+      oldTasks = state.tasks;
+      oldTasks.push(action.payload);
       return {
         ...state,
-        tasks: state.tasks.push(action.payload)
+        tasks: oldTasks
       };
-    case 'EDIT_TASK':
+    default:
+      return state;
   }
 };

@@ -32,6 +32,7 @@ const DayHeading = props => {
           ></Icon>
           <AddTaskModal
             visible={visible}
+            day={day}
             closeModal={() => toggleVisible(false)}
           ></AddTaskModal>
         </View>
