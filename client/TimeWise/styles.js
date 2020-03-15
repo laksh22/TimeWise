@@ -37,6 +37,10 @@ const styles = StyleSheet.create({
   text: {
     color: '#FFFFFF'
   },
+  timeText: {
+    color: 'black',
+    backgroundColor: 'white'
+  },
   // Containers
   modal: {
     backgroundColor: '#565656',
@@ -58,6 +62,12 @@ const styles = StyleSheet.create({
   },
   buttonRow: {
     justifyContent: 'space-between',
+    flexDirection: 'row',
+    width: Dimensions.get('window').width * 0.6
+  },
+  timeButtonRow: {
+    margin: 5,
+    justifyContent: 'space-around',
     flexDirection: 'row',
     width: Dimensions.get('window').width * 0.6
   },
