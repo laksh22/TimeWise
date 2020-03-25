@@ -49,7 +49,41 @@ export const GlobalContext = createContext(initialState);
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
+  const convertTimeFormat = dateTime => {
+    var hours = dateTime.getHours();
+    var minutes = dateTime.getMinutes();
+    var ampm = hours > 12 ? 'PM' : 'AM';
+    return `${hours}:${minutes}${ampm}`;
+  };
+
   // Actions
+  const getTasks = async (email, password) => {
+    try {
+      const res = await axios.post('http://10.0.2.2:27017/', {
+        username: email,
+        password: password
+      });
+
+      let classArr = [];
+      for (const task of res.data.data) {
+        var newTask = {
+          type: 'class',
+          name: task.courseCode,
+          location: task.location,
+          day: task.date.getDay(),
+          time: convertTimeFormat(task.date.getTime())
+        };
+        classArr.push(newTask);
+      }
+      dispatch({
+        type: 'GET_TASKS',
+        payload: res.data.data
+      });
+    } catch (err) {
+      console.log(error);
+    }
+  };
+
   const changeCurrentTask = name => {
     dispatch({
       type: 'CHANGE_CURRENT_TASK',
@@ -94,7 +128,8 @@ export const GlobalProvider = ({ children }) => {
         deleteTask: deleteTask,
         completeTask: completeTask,
         addNewTask: addNewTask,
-        editTask: editTask
+        editTask: editTask,
+        getTasks: getTasks
       }}
     >
       {children}

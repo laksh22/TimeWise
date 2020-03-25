@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useContext } from 'react';
 import {
   StyleSheet,
   View,
@@ -10,7 +10,11 @@ import {
   TouchableHighlight
 } from 'react-native';
 
+import { GlobalContext } from '../../context/GlobalState';
+
 const LoginPage = ({ navigation }) => {
+  const { getTasks } = useContext(GlobalContext);
+
   const [email, onChangeEmail] = React.useState('');
   const [password, onChangePassword] = React.useState('');
 
@@ -49,6 +53,7 @@ const LoginPage = ({ navigation }) => {
           onPress={() => {
             onChangeEmail('');
             onChangePassword('');
+            getTasks(email, password);
             navigation.navigate('TasksPage');
           }}
         >
