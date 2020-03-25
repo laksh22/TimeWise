@@ -10,8 +10,12 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import { GlobalContext } from '../../context/GlobalState';
+
 const Sidebar = props => {
   const { visible, closeModal, navigation } = props;
+
+  const { getTasks } = useContext(GlobalContext);
 
   return (
     <Modal
@@ -30,7 +34,10 @@ const Sidebar = props => {
         </View>
         <View style={styles.sidebarRow}>
           <TouchableWithoutFeedback
-            onPress={() => navigation.navigate('LoginPage')}
+            onPress={() => {
+              getTasks();
+              closeModal();
+            }}
           >
             <Text style={styles.sidebarText}>Refresh Schedule</Text>
           </TouchableWithoutFeedback>

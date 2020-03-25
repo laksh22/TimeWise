@@ -1,45 +1,99 @@
 import React, { createContext, useReducer } from 'react';
 import AppReducer from './AppReducer';
 
+// Initial task list
+const tasks = [
+  {
+    type: 'class',
+    name: 'CZ3002 LEC',
+    location: 'TCT-LT',
+    day: 'Tuesday',
+    time: '3:30PM'
+  },
+  {
+    type: 'class',
+    name: 'CZ3002 TUT',
+    location: 'TR+16',
+    day: 'Tuesday',
+    time: '9:30AM'
+  },
+  {
+    type: 'class',
+    name: 'CZ3002 LAB',
+    location: 'SWLAB3',
+    day: 'Thursday',
+    time: '8:30AM'
+  },
+  {
+    type: 'class',
+    name: 'CE3001 LEC',
+    location: 'LT2A',
+    day: 'Friday',
+    time: '2:30PM'
+  },
+  {
+    type: 'class',
+    name: 'CE3001 TUT',
+    location: 'TR+17',
+    day: 'Monday',
+    time: '10:30AM'
+  },
+  {
+    type: 'class',
+    name: 'CE3001 LAB',
+    location: 'HWLAB3',
+    day: 'Friday',
+    time: '12:30PM'
+  }
+];
+
 // Initial state
 const initialState = {
   tasks: [
     {
       type: 'class',
-      name: 'CZ3002 Lecture',
-      location: 'LT4',
+      name: 'CZ3002 LEC',
+      location: 'TCT-LT',
       day: 'Tuesday',
+      time: '3:30PM'
+    },
+    {
+      type: 'class',
+      name: 'CZ3002 TUT',
+      location: 'TR+16',
+      day: 'Tuesday',
+      time: '9:30AM'
+    },
+    {
+      type: 'class',
+      name: 'CZ3002 LAB',
+      location: 'SWLAB3',
+      day: 'Thursday',
+      time: '8:30AM'
+    },
+    {
+      type: 'class',
+      name: 'CE3001 LEC',
+      location: 'LT2A',
+      day: 'Friday',
       time: '2:30PM'
     },
     {
       type: 'class',
-      name: 'CZ3004 Lab',
-      location: 'HWLAB3',
-      day: 'Friday',
-      time: '11:30PM'
+      name: 'CE3001 TUT',
+      location: 'TR+17',
+      day: 'Monday',
+      time: '10:30AM'
     },
     {
       type: 'class',
-      name: 'HE9091 Tutorial',
-      location: 'TR+26',
-      day: 'Monday',
-      time: '4:30PM'
-    },
-    {
-      type: 'task',
-      name: 'Buy groceries',
-      location: 'Prime',
-      day: 'Wednesday',
-      time: '10:30AM'
+      name: 'CE3001 LAB',
+      location: 'HWLAB3',
+      day: 'Friday',
+      time: '12:30PM'
     }
   ],
-  task: {
-    type: 'class',
-    name: 'CZ3002 Lecture',
-    location: 'LT4',
-    day: 'Tuesday',
-    time: '2:30PM'
-  }
+  task: {}
 };
 
 // Create context
@@ -57,31 +111,35 @@ export const GlobalProvider = ({ children }) => {
   };
 
   // Actions
-  const getTasks = async (email, password) => {
-    try {
-      const res = await axios.post('http://10.0.2.2:27017/', {
-        username: email,
-        password: password
-      });
+  const getTasks = async () => {
+    dispatch({
+      type: 'GET_TASKS',
+      payload: tasks
+    });
+    // try {
+    //   const res = await axios.post('http://10.0.2.2:27017/', {
+    //     username: email,
+    //     password: password
+    //   });
 
-      let classArr = [];
-      for (const task of res.data.data) {
-        var newTask = {
-          type: 'class',
-          name: task.courseCode,
-          location: task.location,
-          day: task.date.getDay(),
-          time: convertTimeFormat(task.date.getTime())
-        };
-        classArr.push(newTask);
-      }
-      dispatch({
-        type: 'GET_TASKS',
-        payload: res.data.data
-      });
-    } catch (err) {
-      console.log(error);
-    }
+    //   let classArr = [];
+    //   for (const task of res.data.data) {
+    //     var newTask = {
+    //       type: 'class',
+    //       name: task.courseCode,
+    //       location: task.location,
+    //       day: task.date.getDay(),
+    //       time: convertTimeFormat(task.date.getTime())
+    //     };
+    //     classArr.push(newTask);
+    //   }
+    //   dispatch({
+    //     type: 'GET_TASKS',
+    //     payload: res.data.data
+    //   });
+    // } catch (err) {
+    //   console.log(error);
+    // }
   };
 
   const changeCurrentTask = name => {

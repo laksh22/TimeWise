@@ -17,17 +17,17 @@ import styles from '../../styles';
 import Tag from '../Misc/Tag';
 
 const EditTaskModal = props => {
-  const { visible, closeModal} = props;
+  const { visible, closeModal } = props;
 
   const { task, editTask } = useContext(GlobalContext);
 
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
 
   const [time, setTime] = useState(task.time);
-  const [name, setName] = useState('Task Name');
+  const [name, setName] = useState(task.name);
 
-  const onChange = (nameValue) => setName(nameValue);
-  
+  const onChange = nameValue => setName(nameValue);
+
   var testTime = '';
 
   const test = {
@@ -35,7 +35,9 @@ const EditTaskModal = props => {
     name: 'Test',
     location: 'Prime',
     day: 'Wednesday',
-    get prop5() {return testTime;}
+    get prop5() {
+      return testTime;
+    }
   };
 
   const toggleTimePicker = () => {
@@ -48,8 +50,7 @@ const EditTaskModal = props => {
     var hours = dateTime.getHours();
     var minutes = dateTime.getMinutes();
     var ampm = hours > 12 ? 'PM' : 'AM';
-    var newTime = 
-    setTime(`${hours}:${minutes}${ampm}`);
+    var newTime = setTime(`${hours}:${minutes}${ampm}`);
   };
 
   return (
@@ -81,7 +82,11 @@ const EditTaskModal = props => {
             </TouchableWithoutFeedback>
           </View>
           <View style={styles.container}>
-            <TextInput placeholder={task.name} style={styles.text} onChangeText={onChange}/>
+            <TextInput
+              placeholder={task.name}
+              style={styles.text}
+              onChangeText={onChange}
+            />
           </View>
           <View style={styles.container}>
             <Text style={styles.text}>{time}</Text>

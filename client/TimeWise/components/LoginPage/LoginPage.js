@@ -53,7 +53,7 @@ const LoginPage = ({ navigation }) => {
           onPress={() => {
             onChangeEmail('');
             onChangePassword('');
-            getTasks(email, password);
+            //getTasks(email, password);
             navigation.navigate('TasksPage');
           }}
         >
