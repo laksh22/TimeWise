@@ -5,23 +5,30 @@ mongoose.Promise = global.Promise;
 
 const classSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
-  course: {
+  type: {
     type: String,
     required: true,
   },
-  TaskName: {
+  name: {
     type: String,
     required: false,
   },
-  date: {
+  location: {
     type: String,
     required: true,
   },
-  description: {
+  day: {
+    type: String,
+    required: true,
+  },
+  time: {
     type: String,
     required: true,
   },
 
 });
+
+// "type", "same", "location", "day", "time"
+
 
 module.exports = mongoose.model('Task', classSchema);
