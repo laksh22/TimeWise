@@ -5,7 +5,8 @@
 // get tasks created
 
 
-const Class = require('../models/class');
+// const Class = require('../models/class');
+const Task = require('../models/task');
 const mongoose =require('mongoose');
 var fs = require('fs');
 
@@ -18,20 +19,19 @@ function seedClass(req, res) {
 
     var i;
     for (i = 0; i < classes.length; i++) {
-        const cla = new Class({
+        const t = new Task({
         _id: mongoose.Types.ObjectId(),
-        course: classes[i].course,
-        courseName: classes[i].courseName,
-        date: classes[i].date,
-        endTime: classes[i].endTime,
+        type: "class",
+        name: classes[i].course,
+        day: classes[i].date,
         location: classes[i].location,
-        startTime: classes[i].startTime,
-        type: classes[i].type
-
+        time: classes[i].startTime,
     });
+
+
     // cla.markModified('object')
-    cla.save(function (err) {
-        console.log(err, "errrrr");
+    t.save(function (err) {
+        console.log(err, "error seeding", t);
     })
 
 
@@ -45,8 +45,8 @@ function seedClass(req, res) {
 
 // Get all Tasks
 function getAllClasses(req, res){
-
-  Class.find({})
+  // return all tasks of type class
+  Task.find({})
     // .select('_id course courseName date endTime location startTime type') this doesnt work why
     .then((allClass) => {
         console.log(allClass)
@@ -62,8 +62,6 @@ function getAllClasses(req, res){
         });
       });
 }
-
-
 
 
 
