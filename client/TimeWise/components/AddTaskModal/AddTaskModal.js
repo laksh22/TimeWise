@@ -16,49 +16,12 @@ import styles from '../../styles';
 
 const AddTaskModal = props => {
   const { visible, closeModal, day } = props;
-
-  const { task, tasks, addNewTask } = useContext(GlobalContext);
+  const { tasks, addNewTask } = useContext(GlobalContext);
 
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
-
-  const [time, setTime] = useState('Time');
+  const [time, setTime] = useState('2:00PM');
   const [name, setName] = useState('Task Name');
   const [timeSamples, setTimeSamples] = useState([]);
-
-  useEffect(() => {
-    getTimeSuggestions();
-  }, []);
-
-  const onChange = nameValue => setName(nameValue);
-
-  var testTime = '';
-
-  const test = {
-    type: 'task',
-    name: 'Test',
-    location: 'Prime',
-    day: 'Wednesday',
-    get prop5() {
-      return testTime;
-    }
-  };
-
-  const toggleTimePicker = () => {
-    setTimePickerVisibility(!isTimePickerVisible);
-  };
-
-  const handleConfirm = dateTime => {
-    toggleTimePicker();
-
-    var hours = dateTime.getHours();
-    var minutes = dateTime.getMinutes();
-    var ampm = hours > 12 ? 'PM' : 'AM';
-    var newTime = setTime(`${hours}:${minutes}${ampm}`);
-  };
-
-  function getRandomInt(max) {
-    return Math.floor(Math.random() * Math.floor(max));
-  }
 
   var sampleTimes = [
     '07:00AM',
@@ -77,10 +40,32 @@ const AddTaskModal = props => {
     '08:00PM',
     '09:00PM'
   ];
-
   const dayTasks = tasks.filter(task => task.day == day);
 
-  function checkTime(time) {
+  useEffect(() => {
+    getTimeSuggestions();
+  }, []);
+
+  const onChange = nameValue => setName(nameValue);
+
+  const toggleTimePicker = () => {
+    setTimePickerVisibility(!isTimePickerVisible);
+  };
+
+  const handleConfirm = dateTime => {
+    toggleTimePicker();
+
+    var hours = dateTime.getHours();
+    var minutes = dateTime.getMinutes();
+    var ampm = hours > 12 ? 'PM' : 'AM';
+    setTime(`${hours}:${minutes}${ampm}`);
+  };
+
+  const getRandomInt = max => {
+    return Math.floor(Math.random() * Math.floor(max));
+  };
+
+  const checkTime = time => {
     var i;
     for (i = 0; i < dayTasks.length; i++) {
       if (time == dayTasks[i].time) {
@@ -89,9 +74,9 @@ const AddTaskModal = props => {
       }
     }
     return time;
-  }
+  };
 
-  function checkRepeat(time) {
+  const checkRepeat = time => {
     if (timeSamples.length > 0) {
       var i;
       for (i = 0; i < timeSamples.length; i++) {
@@ -102,9 +87,9 @@ const AddTaskModal = props => {
       }
     }
     return time;
-  }
+  };
 
-  function getTimeSuggestions() {
+  const getTimeSuggestions = () => {
     var i = 0;
     while (i < 5) {
       var sampleTime = checkRepeat(checkTime(sampleTimes[getRandomInt(14)]));
@@ -112,11 +97,7 @@ const AddTaskModal = props => {
       timeSamples.push(sampleTime);
       i++;
     }
-  }
-
-  function useTimeSuggestion(givenTime) {
-    setTime(givenTime);
-  }
+  };
 
   return (
     <Modal
@@ -132,7 +113,7 @@ const AddTaskModal = props => {
         style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
         activeOpacity={0}
         onPressOut={() => {
-          //closeModal();
+          closeModal();
         }}
       >
         <View style={styles.modal}>
@@ -140,73 +121,81 @@ const AddTaskModal = props => {
             <Text style={styles.boldHeadingText}>Add Task</Text>
             <TouchableWithoutFeedback
               onPress={() => {
-                closeModal();
-              }}
-            >
-              <Icon name="times" color="white" size={25}></Icon>
-            </TouchableWithoutFeedback>
-          </View>
-          <View style={styles.container}>
-            <TextInput
-              placeholder="Task Name"
-              style={styles.text}
-              onChangeText={onChange}
-            />
-          </View>
-          <View style={styles.container}>
-            <Text style={styles.text}>{time}</Text>
-          </View>
-          <Text style={styles.text}>Suggestions</Text>
-          <View style={styles.timeButtonRow}>
-            <Button
-              title={timeSamples[0]}
-              onPress={() => setTime(timeSamples[0])}
-            />
-            <Button
-              title={timeSamples[1]}
-              onPress={() => setTime(timeSamples[1])}
-            />
-            <Button
-              title={timeSamples[2]}
-              onPress={() => setTime(timeSamples[2])}
-            />
-          </View>
-          <View style={styles.timeButtonRow}>
-            <Button
-              title={timeSamples[3]}
-              onPress={() => setTime(timeSamples[3])}
-            />
-            <Button
-              title={timeSamples[4]}
-              onPress={() => setTime(timeSamples[4])}
-            />
-          </View>
-          <View style={styles.buttonRow}>
-            <TouchableWithoutFeedback
-              onPress={() => {
-                toggleTimePicker();
-              }}
-            >
-              <Icon name="hourglass" color="white" size={25}></Icon>
-            </TouchableWithoutFeedback>
-            <DateTimePicker
-              isVisible={isTimePickerVisible}
-              mode="time"
-              is24Hour={false}
-              onConfirm={handleConfirm}
-              onCancel={toggleTimePicker}
-            />
-            <TouchableWithoutFeedback
-              onPress={() => {
-                test.name = name;
-                test.time = time;
-                test.day = day;
-                addNewTask(test);
+                addNewTask({
+                  type: 'task',
+                  name: name,
+                  location: 'Not Specified',
+                  day: day,
+                  time: time
+                });
                 closeModal();
               }}
             >
               <Icon name="paper-plane" color="white" size={25}></Icon>
             </TouchableWithoutFeedback>
+          </View>
+          <View style={styles.row}>
+            <View style={styles.taskNameContainer}>
+              <TextInput
+                placeholder="Task Name"
+                style={styles.text}
+                onChangeText={onChange}
+              />
+            </View>
+
+            <View style={styles.timeContainer}>
+              <Text style={styles.text}>{time}</Text>
+            </View>
+          </View>
+
+          <View style={styles.timeRow}>
+            <View style={styles.timeButtonColumn}>
+              <View style={styles.timeButtonRow}>
+                <TouchableOpacity onPress={() => setTime(timeSamples[0])}>
+                  <Text style={styles.timeRecommendation}>
+                    {timeSamples[0]}
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => setTime(timeSamples[1])}>
+                  <Text style={styles.timeRecommendation}>
+                    {timeSamples[1]}
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => setTime(timeSamples[2])}>
+                  <Text style={styles.timeRecommendation}>
+                    {timeSamples[2]}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.timeButtonRow}>
+                <TouchableOpacity onPress={() => setTime(timeSamples[3])}>
+                  <Text style={styles.timeRecommendation}>
+                    {timeSamples[3]}
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => setTime(timeSamples[4])}>
+                  <Text style={styles.timeRecommendation}>
+                    {timeSamples[4]}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={styles.buttonRow}>
+              <TouchableOpacity
+                onPress={() => {
+                  toggleTimePicker();
+                }}
+              >
+                <Text style={styles.chooseTimeButton}>CHOOSE{'\n'}TIME</Text>
+              </TouchableOpacity>
+              <DateTimePicker
+                isVisible={isTimePickerVisible}
+                mode="time"
+                is24Hour={false}
+                onConfirm={handleConfirm}
+                onCancel={toggleTimePicker}
+              />
+            </View>
           </View>
         </View>
       </TouchableOpacity>

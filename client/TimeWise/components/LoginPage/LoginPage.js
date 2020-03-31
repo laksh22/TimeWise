@@ -1,16 +1,15 @@
 import React, { Component, useState, useContext } from 'react';
 import {
-  StyleSheet,
   View,
   TextInput,
   Image,
   Text,
-  StatusBar,
   Dimensions,
   TouchableHighlight
 } from 'react-native';
 
 import { GlobalContext } from '../../context/GlobalState';
+import styles from '../../styles';
 
 const LoginPage = ({ navigation }) => {
   const { getTasks } = useContext(GlobalContext);
@@ -19,15 +18,18 @@ const LoginPage = ({ navigation }) => {
   const [password, onChangePassword] = React.useState('');
 
   return (
-    <View style={styles.container}>
+    <View style={styles.loginPageContainer}>
       <View>
         <Image
-          style={styles.idk}
+          style={{
+            width: 100,
+            height: 104
+          }}
           source={require('../../assets/doorIcon.png')}
         />
       </View>
-      <Text style={styles.text1}>Use your NTU credentials to</Text>
-      <Text style={styles.text2}>Login</Text>
+      <Text style={styles.boldMediumText}>Use your NTU credentials to</Text>
+      <Text style={styles.titleText}>Login</Text>
 
       <View
         style={{
@@ -57,70 +59,11 @@ const LoginPage = ({ navigation }) => {
             navigation.navigate('TasksPage');
           }}
         >
-          <Text style={styles.buttonStyle}>LOGIN</Text>
+          <Text style={styles.button}>LOGIN</Text>
         </TouchableHighlight>
       </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#121212',
-    flex: 1,
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-    paddingTop:
-      StatusBar.currentHeight + Dimensions.get('window').height * 0.06,
-    paddingLeft: Dimensions.get('window').width * 0.1
-  },
-  logoContainer: {
-    marginTop: 63
-  },
-  idk: {
-    width: 100,
-    height: 104
-  },
-  text1: {
-    fontSize: 24,
-    color: 'white',
-    fontStyle: 'italic',
-    fontFamily: 'Roboto',
-    fontWeight: '300'
-  },
-  text2: {
-    fontSize: 50,
-    color: 'white',
-    fontWeight: '500',
-    fontFamily: 'Roboto'
-  },
-  emailTextBox: {
-    marginTop: Dimensions.get('window').height * 0.14,
-    borderRadius: 10,
-    backgroundColor: '#2B2B2B',
-    width: Dimensions.get('window').width * 0.8,
-    fontSize: 25,
-    color: '#EEEEEE',
-    padding: 10
-  },
-  passwordTextBox: {
-    marginTop: Dimensions.get('window').height * 0.03,
-    borderRadius: 10,
-    backgroundColor: '#2B2B2B',
-    width: Dimensions.get('window').width * 0.8,
-    fontSize: 25,
-    color: '#EEEEEE',
-    padding: 10
-  },
-  buttonStyle: {
-    fontSize: 32,
-    color: 'white', //text
-    paddingHorizontal: 20,
-    paddingVertical: 3,
-    borderRadius: 15,
-    marginTop: 100,
-    backgroundColor: '#2AB1E3'
-  }
-});
 
 export default LoginPage;

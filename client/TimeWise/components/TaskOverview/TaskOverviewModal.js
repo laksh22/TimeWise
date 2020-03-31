@@ -60,10 +60,13 @@ const TaskOverviewModal = props => {
             <Text style={styles.text}>Type:</Text>
             <Tag type={task.type}></Tag>
           </View>
-          <View style={styles.container}>
-            <Text style={styles.text}>Location:</Text>
-            <Text style={styles.text}>{task.location}</Text>
-          </View>
+          {task.type == 'class' ? (
+            <View style={styles.container}>
+              <Text style={styles.text}>Location:</Text>
+              <Text style={styles.text}>{task.location}</Text>
+            </View>
+          ) : null}
+
           <View style={styles.container}>
             <Text style={styles.text}>Day:</Text>
             <Text style={styles.text}>{task.day}</Text>

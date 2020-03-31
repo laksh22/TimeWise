@@ -16,6 +16,12 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   // Text
+  titleText: {
+    fontSize: 50,
+    color: 'white',
+    fontWeight: '500',
+    fontFamily: 'Roboto'
+  },
   headingText: {
     color: '#FFFFFF',
     fontSize: 30
@@ -34,6 +40,10 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 20
   },
+  boldMediumText: {
+    color: '#FFFFFF',
+    fontSize: 20
+  },
   text: {
     color: '#FFFFFF'
   },
@@ -42,6 +52,20 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   // Containers
+  homePage: {
+    backgroundColor: 'black',
+    flex: 1,
+    alignItems: 'center'
+  },
+  button: {
+    fontSize: 32,
+    color: 'white',
+    paddingHorizontal: 20,
+    paddingVertical: 3,
+    borderRadius: 15,
+    marginTop: 100,
+    backgroundColor: '#2AB1E3'
+  },
   modal: {
     backgroundColor: '#565656',
     borderRadius: 20,
@@ -60,17 +84,48 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
+  timeContainer: {
+    margin: 5,
+    padding: 8,
+    backgroundColor: '#636363',
+    borderRadius: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  taskNameContainer: {
+    margin: 5,
+    padding: 8,
+    backgroundColor: '#636363',
+    borderRadius: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '70%'
+  },
+  loginPageContainer: {
+    backgroundColor: '#121212',
+    flex: 1,
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    paddingTop:
+      StatusBar.currentHeight + Dimensions.get('window').height * 0.06,
+    paddingLeft: Dimensions.get('window').width * 0.1
+  },
+  timeRow: {
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    width: Dimensions.get('window').width * 0.6
+  },
   buttonRow: {
     justifyContent: 'space-between',
     flexDirection: 'row',
     width: Dimensions.get('window').width * 0.6
   },
   timeButtonRow: {
-    margin: 5,
-    justifyContent: 'space-around',
-    flexDirection: 'row',
-    width: Dimensions.get('window').width * 0.6
+    margin: 3,
+    justifyContent: 'center',
+    flexDirection: 'row'
   },
+  timeButtonColumn: {},
   taskTag: {
     backgroundColor: 'transparent',
     borderRadius: 20,
@@ -84,6 +139,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#FFC700',
     paddingHorizontal: 5
+  },
+  chooseTimeButton: {
+    backgroundColor: 'transparent',
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#00ADFE',
+    padding: 5,
+    color: '#FFFFFF',
+    textAlign: 'center'
   },
   toolbar: {
     alignSelf: 'stretch',
@@ -124,6 +188,34 @@ const styles = StyleSheet.create({
   tasksList: {
     alignSelf: 'stretch'
   },
+  timeRecommendation: {
+    backgroundColor: 'transparent',
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#04D400',
+    padding: 3,
+    color: '#FFFFFF',
+    margin: 2,
+    fontSize: 12
+  },
+  emailTextBox: {
+    marginTop: Dimensions.get('window').height * 0.14,
+    borderRadius: 10,
+    backgroundColor: '#2B2B2B',
+    width: Dimensions.get('window').width * 0.8,
+    fontSize: 25,
+    color: '#EEEEEE',
+    padding: 10
+  },
+  passwordTextBox: {
+    marginTop: Dimensions.get('window').height * 0.03,
+    borderRadius: 10,
+    backgroundColor: '#2B2B2B',
+    width: Dimensions.get('window').width * 0.8,
+    fontSize: 25,
+    color: '#EEEEEE',
+    padding: 10
+  },
   //Direction
   row: {
     flexDirection: 'row'
@@ -136,6 +228,33 @@ const styles = StyleSheet.create({
   smallIcon: {
     width: 15,
     height: 15
+  },
+  // Sidebar
+  sidebarContainer: {
+    backgroundColor: '#3C3C3C',
+    flex: 1,
+    width: Dimensions.get('window').width * 0.6
+  },
+  sidebarHeading: {
+    color: '#DDDDDD',
+    fontWeight: '100',
+    fontSize: 30
+  },
+  sidebarText: {
+    paddingHorizontal: 5,
+    paddingVertical: 5,
+    color: '#FFFFFF',
+    fontWeight: '100',
+    fontSize: 27
+  },
+  sidebarRow: {
+    paddingHorizontal: 10,
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    borderBottomColor: '#747474',
+    borderBottomWidth: 2
   }
 });
 
