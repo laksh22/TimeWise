@@ -9,6 +9,10 @@
 - {{HOST}}/api/seed: seed data from json to mongo
 - patch task
 - get all task
-- post task
+- post task\
+
+
+## outstanding bugs:
+- some rows arent seeding porperly
 
 
