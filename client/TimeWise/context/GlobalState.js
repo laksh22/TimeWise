@@ -10,42 +10,42 @@ const tasks = [
     name: 'CZ3002 LEC',
     location: 'TCT-LT',
     day: 'Tuesday',
-    time: '3:30PM'
+    time: '1530'
   },
   {
     type: 'class',
     name: 'CZ3002 TUT',
     location: 'TR+16',
     day: 'Tuesday',
-    time: '9:30AM'
+    time: '930'
   },
   {
     type: 'class',
     name: 'CZ3002 LAB',
     location: 'SWLAB3',
     day: 'Thursday',
-    time: '8:30AM'
+    time: '830'
   },
   {
     type: 'class',
     name: 'CE3001 LEC',
     location: 'LT2A',
     day: 'Friday',
-    time: '2:30PM'
+    time: '1430'
   },
   {
     type: 'class',
     name: 'CE3001 TUT',
     location: 'TR+17',
     day: 'Monday',
-    time: '10:30AM'
+    time: '1030'
   },
   {
     type: 'class',
     name: 'CE3001 LAB',
     location: 'HWLAB3',
     day: 'Friday',
-    time: '12:30PM'
+    time: '1230'
   }
 ];
 
@@ -53,7 +53,7 @@ const tasks = [
 const initialState = {
   tasks: [],
   task: {},
-  email: ''
+  user: {}
 };
 
 // Create context
@@ -74,20 +74,16 @@ export const GlobalProvider = ({ children }) => {
     'Sunday'
   ];
 
-  // Actions
-  const changeUser = async email => {
-    dispatch({
-      type: 'CHANGE_USER',
-      payload: email
-    });
-  };
-
   const getTasks = async (email, password) => {
+    await dispatch({
+      type: 'CHANGE_USER',
+      payload: { email, password }
+    });
+
     try {
-      const res = await axios.get('https://nodebe.herokuapp.com/api/task/', {
-        username: email,
-        password: password
-      });
+      const res = await axios.get(
+        `https://nodebe.herokuapp.com/api/taskquery/?email=${email}`
+      );
 
       let classArr = [];
 
@@ -119,7 +115,10 @@ export const GlobalProvider = ({ children }) => {
 
       dispatch({
         type: 'GET_TASKS',
-        payload: classArr.slice(1, 20)
+        payload: {
+          tasks: classArr,
+          user: { email, password }
+        }
       });
     } catch (err) {
       console.log(err);
@@ -133,18 +132,40 @@ export const GlobalProvider = ({ children }) => {
     });
   };
 
-  const deleteTask = id => {
-    dispatch({
-      type: 'DELETE_TASK',
-      payload: id
-    });
+  const deleteTask = async id => {
+    try {
+      const res = await axios.delete(
+        `https://nodebe.herokuapp.com/api/task/${id}`,
+        {
+          email: state.user.email
+        }
+      );
+
+      dispatch({
+        type: 'DELETE_TASK',
+        payload: id
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const completeTask = id => {
-    dispatch({
-      type: 'COMPLETE_TASK',
-      payload: id
-    });
+  const completeTask = async id => {
+    try {
+      const res = await axios.delete(
+        `https://nodebe.herokuapp.com/api/task/${id}`,
+        {
+          email: state.user.email
+        }
+      );
+
+      dispatch({
+        type: 'COMPLETE_TASK',
+        payload: id
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const addNewTask = async userTask => {
@@ -153,9 +174,12 @@ export const GlobalProvider = ({ children }) => {
         type: userTask.type,
         name: userTask.name,
         day: userTask.day,
-        time: userTask.time.replace(':', ''),
+        time: userTask.time
+          .replace(':', '')
+          .replace('AM', '')
+          .replace('PM', ''),
         location: userTask.location,
-        email: state.email
+        email: state.user.email
       });
 
       const { task } = res.data;
@@ -188,7 +212,7 @@ export const GlobalProvider = ({ children }) => {
           day: userTask.day,
           time: userTask.time.replace(':', ''),
           location: userTask.location,
-          email: state.email
+          email: state.user.email
         }
       );
 
@@ -217,12 +241,13 @@ export const GlobalProvider = ({ children }) => {
       value={{
         tasks: state.tasks,
         task: state.task,
-        changeCurrentTask: changeCurrentTask,
-        deleteTask: deleteTask,
-        completeTask: completeTask,
-        addNewTask: addNewTask,
-        editTask: editTask,
-        getTasks: getTasks
+        user: state.user,
+        changeCurrentTask,
+        deleteTask,
+        completeTask,
+        addNewTask,
+        editTask,
+        getTasks
       }}
     >
       {children}

@@ -1,4 +1,4 @@
-import React, { Component, useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   View,
   TextInput,
@@ -14,8 +14,8 @@ import styles from '../../styles';
 const LoginPage = ({ navigation }) => {
   const { getTasks } = useContext(GlobalContext);
 
-  const [email, onChangeEmail] = React.useState('');
-  const [password, onChangePassword] = React.useState('');
+  const [email, onChangeEmail] = useState('');
+  const [password, onChangePassword] = useState('');
 
   return (
     <View style={styles.loginPageContainer}>
@@ -53,9 +53,9 @@ const LoginPage = ({ navigation }) => {
 
         <TouchableHighlight
           onPress={() => {
+            getTasks(email, password);
             onChangeEmail('');
             onChangePassword('');
-            getTasks(email, password);
             navigation.navigate('TasksPage');
           }}
         >

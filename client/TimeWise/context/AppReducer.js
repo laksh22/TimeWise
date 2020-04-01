@@ -3,7 +3,8 @@ export default (state, action) => {
     case 'GET_TASKS':
       return {
         ...state,
-        tasks: action.payload
+        tasks: action.payload.tasks,
+        user: action.payload.user
       };
     case 'CHANGE_CURRENT_TASK':
       return {
@@ -37,11 +38,6 @@ export default (state, action) => {
         ...state,
         tasks: oldTasks,
         task: action.payload
-      };
-    case 'CHANGE_USER':
-      return {
-        ...state,
-        email: action.payload
       };
     default:
       return state;

@@ -8,7 +8,7 @@ import styles from '../../styles';
 const Sidebar = props => {
   const { visible, closeModal, navigation } = props;
 
-  const { getTasks } = useContext(GlobalContext);
+  const { getTasks, user } = useContext(GlobalContext);
 
   return (
     <Modal
@@ -28,7 +28,7 @@ const Sidebar = props => {
         <View style={styles.sidebarRow}>
           <TouchableWithoutFeedback
             onPress={() => {
-              getTasks();
+              getTasks(user.email, user.password);
               closeModal();
             }}
           >
@@ -37,7 +37,9 @@ const Sidebar = props => {
         </View>
         <View style={styles.sidebarRow}>
           <TouchableWithoutFeedback
-            onPress={() => navigation.navigate('LoginPage')}
+            onPress={() => {
+              navigation.navigate('LoginPage');
+            }}
           >
             <Text style={styles.sidebarText}>Logout</Text>
           </TouchableWithoutFeedback>
