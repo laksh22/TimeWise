@@ -57,8 +57,9 @@ const AddTaskModal = props => {
 
     var hours = dateTime.getHours();
     var minutes = dateTime.getMinutes();
-    var ampm = hours > 12 ? 'PM' : 'AM';
-    setTime(`${hours}:${minutes}${ampm}`);
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
+    hours = hours < 10 ? `0${hours}` : hours;
+    setTime(`${hours}:${minutes} `);
   };
 
   const getRandomInt = max => {

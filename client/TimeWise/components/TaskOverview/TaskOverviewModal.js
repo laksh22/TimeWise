@@ -51,7 +51,7 @@ const TaskOverviewModal = props => {
               </View>
             </TouchableWithoutFeedback>
 
-            <TouchableWithoutFeedback onPress={() => deleteTask(task.name)}>
+            <TouchableWithoutFeedback onPress={() => deleteTask(task.id)}>
               <Icon name="trash" color="white" size={25}></Icon>
             </TouchableWithoutFeedback>
           </View>

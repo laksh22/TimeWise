@@ -33,8 +33,9 @@ const EditTaskModal = props => {
 
     var hours = dateTime.getHours();
     var minutes = dateTime.getMinutes();
-    var ampm = hours > 12 ? 'PM' : 'AM';
-    setTime(`${hours}:${minutes}${ampm}`);
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
+    hours = hours < 10 ? `0${hours}` : hours;
+    setTime(`${hours}:${minutes} `);
   };
 
   return (
@@ -59,9 +60,15 @@ const EditTaskModal = props => {
             <Text style={styles.boldHeadingText}>Edit Task</Text>
             <TouchableWithoutFeedback
               onPress={() => {
-                task.name = name;
-                task.time = time;
-                editTask(task);
+                const editedTask = {
+                  name: name,
+                  time: time,
+                  id: task.id,
+                  location: task.location,
+                  day: task.day,
+                  type: task.type
+                };
+                editTask(editedTask);
                 closeModal();
               }}
             >
@@ -70,6 +77,7 @@ const EditTaskModal = props => {
           </View>
           <View style={styles.container}>
             <TextInput
+              defaultValue={task.name}
               placeholder={task.name}
               style={styles.text}
               onChangeText={onChange}

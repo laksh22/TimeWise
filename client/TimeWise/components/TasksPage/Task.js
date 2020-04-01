@@ -11,14 +11,14 @@ import TaskOverviewModal from '../TaskOverview/TaskOverviewModal';
 const Task = props => {
   const { changeCurrentTask, completeTask } = useContext(GlobalContext);
 
-  const { type, location, day, time, name } = props.task;
+  const { type, id, time, name } = props.task;
 
   const [visible, toggleVisible] = useState(false);
 
   return (
     <TouchableWithoutFeedback
       onPress={() => {
-        changeCurrentTask(name);
+        changeCurrentTask(id);
         toggleVisible(true);
       }}
     >
@@ -27,7 +27,7 @@ const Task = props => {
           <CheckBox
             uncheckedIcon="circle-o"
             onPress={() => {
-              completeTask(name);
+              completeTask(id);
             }}
           />
           <View>
