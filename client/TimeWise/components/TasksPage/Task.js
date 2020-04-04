@@ -1,20 +1,28 @@
+/*
+ * Parent: Tasks Page
+ * Code for each individual to-do list element
+ */
+
+// Import statements
 import React, { useState, useContext } from 'react';
 import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { GlobalContext } from '../../context/GlobalState';
-import Tag from '../Misc/Tag';
 import styles from '../../styles';
+import Tag from '../Misc/Tag';
 import TaskOverviewModal from '../TaskOverview/TaskOverviewModal';
 
-const Task = props => {
-  const { changeCurrentTask, completeTask } = useContext(GlobalContext);
-
+// Component begins here
+const Task = (props) => {
   const { type, id, time, name } = props.task;
+
+  const { changeCurrentTask, completeTask } = useContext(GlobalContext);
 
   const [visible, toggleVisible] = useState(false);
 
+  // UI of the component
   return (
     <TouchableWithoutFeedback
       onPress={() => {

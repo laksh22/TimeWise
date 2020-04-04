@@ -1,3 +1,8 @@
+/*
+ * Code for modal which allows user to edit the time and name of an existing task
+ */
+
+// Import statements
 import React, { useState, useContext } from 'react';
 import {
   Modal,
@@ -5,7 +10,7 @@ import {
   TextInput,
   View,
   TouchableOpacity,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import DateTimePicker from 'react-native-modal-datetime-picker';
@@ -13,7 +18,8 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import { GlobalContext } from '../../context/GlobalState';
 import styles from '../../styles';
 
-const EditTaskModal = props => {
+// Component begins here
+const EditTaskModal = (props) => {
   const { visible, closeModal } = props;
 
   const { task, editTask } = useContext(GlobalContext);
@@ -22,13 +28,13 @@ const EditTaskModal = props => {
   const [time, setTime] = useState(task.time);
   const [name, setName] = useState(task.name);
 
-  const onChange = nameValue => setName(nameValue);
+  const onChange = (nameValue) => setName(nameValue);
 
   const toggleTimePicker = () => {
     setTimePickerVisibility(!isTimePickerVisible);
   };
 
-  const handleConfirm = dateTime => {
+  const handleConfirm = (dateTime) => {
     toggleTimePicker();
 
     var hours = dateTime.getHours();
@@ -38,6 +44,7 @@ const EditTaskModal = props => {
     setTime(`${hours}:${minutes} `);
   };
 
+  // UI of the component
   return (
     <Modal
       animationType="fade"
@@ -66,7 +73,7 @@ const EditTaskModal = props => {
                   id: task.id,
                   location: task.location,
                   day: task.day,
-                  type: task.type
+                  type: task.type,
                 };
                 editTask(editedTask);
                 closeModal();

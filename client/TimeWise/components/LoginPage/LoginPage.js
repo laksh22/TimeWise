@@ -1,3 +1,8 @@
+/*
+ * Code for login page where user can enter their NTU email and password
+ */
+
+// Import statements
 import React, { useState, useContext } from 'react';
 import {
   View,
@@ -5,25 +10,27 @@ import {
   Image,
   Text,
   Dimensions,
-  TouchableHighlight
+  TouchableHighlight,
 } from 'react-native';
 
 import { GlobalContext } from '../../context/GlobalState';
 import styles from '../../styles';
 
+// Component begins here
 const LoginPage = ({ navigation }) => {
   const { getTasks } = useContext(GlobalContext);
 
   const [email, onChangeEmail] = useState('');
   const [password, onChangePassword] = useState('');
 
+  // UI of the component
   return (
     <View style={styles.loginPageContainer}>
       <View>
         <Image
           style={{
             width: 100,
-            height: 104
+            height: 104,
           }}
           source={require('../../assets/doorIcon.png')}
         />
@@ -34,18 +41,18 @@ const LoginPage = ({ navigation }) => {
       <View
         style={{
           alignItems: 'center',
-          width: Dimensions.get('window').width * 0.8
+          width: Dimensions.get('window').width * 0.8,
         }}
       >
         <TextInput
           style={styles.emailTextBox}
-          onChangeText={text => onChangeEmail(text)}
+          onChangeText={(text) => onChangeEmail(text)}
           value={email}
           placeholder="NTU Email"
         />
         <TextInput
           style={styles.passwordTextBox}
-          onChangeText={text => onChangePassword(text)}
+          onChangeText={(text) => onChangePassword(text)}
           value={password}
           placeholder="Password"
           secureTextEntry={true}

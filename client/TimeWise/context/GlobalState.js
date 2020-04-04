@@ -1,59 +1,17 @@
+/*
+ * This is the code for the Redux Store as well as the Actions
+ */
+
 import React, { createContext, useReducer } from 'react';
 import AppReducer from './AppReducer';
 
-import axios from 'axios';
+import axios from 'axios'; // For making calls to the backend
 
-// Initial task list
-const tasks = [
-  {
-    type: 'class',
-    name: 'CZ3002 LEC',
-    location: 'TCT-LT',
-    day: 'Tuesday',
-    time: '1530'
-  },
-  {
-    type: 'class',
-    name: 'CZ3002 TUT',
-    location: 'TR+16',
-    day: 'Tuesday',
-    time: '930'
-  },
-  {
-    type: 'class',
-    name: 'CZ3002 LAB',
-    location: 'SWLAB3',
-    day: 'Thursday',
-    time: '830'
-  },
-  {
-    type: 'class',
-    name: 'CE3001 LEC',
-    location: 'LT2A',
-    day: 'Friday',
-    time: '1430'
-  },
-  {
-    type: 'class',
-    name: 'CE3001 TUT',
-    location: 'TR+17',
-    day: 'Monday',
-    time: '1030'
-  },
-  {
-    type: 'class',
-    name: 'CE3001 LAB',
-    location: 'HWLAB3',
-    day: 'Friday',
-    time: '1230'
-  }
-];
-
-// Initial state
+// The Store is initially empty since the Store is populated with data upon login after an API call
 const initialState = {
   tasks: [],
   task: {},
-  user: {}
+  user: {},
 };
 
 // Create context
@@ -71,13 +29,14 @@ export const GlobalProvider = ({ children }) => {
     'Thursday',
     'Friday',
     'Saturday',
-    'Sunday'
+    'Sunday',
   ];
 
+  // Different actions which are called by the View. Each Action is Dispatched to the Reducer which changes the Store
   const getTasks = async (email, password) => {
     await dispatch({
       type: 'CHANGE_USER',
-      payload: { email, password }
+      payload: { email, password },
     });
 
     try {
@@ -97,7 +56,7 @@ export const GlobalProvider = ({ children }) => {
             name: task.name,
             location: task.location,
             day: dayNames[taskDay.getDay()],
-            time: `${task.time.substring(0, 2)}:${task.time.substring(2, 4)}`
+            time: `${task.time.substring(0, 2)}:${task.time.substring(2, 4)}`,
           };
         } else {
           var newTask = {
@@ -106,7 +65,7 @@ export const GlobalProvider = ({ children }) => {
             name: task.name,
             location: task.location,
             day: task.day,
-            time: `${task.time.substring(0, 2)}:${task.time.substring(2, 4)}`
+            time: `${task.time.substring(0, 2)}:${task.time.substring(2, 4)}`,
           };
         }
 
@@ -117,58 +76,58 @@ export const GlobalProvider = ({ children }) => {
         type: 'GET_TASKS',
         payload: {
           tasks: classArr,
-          user: { email, password }
-        }
+          user: { email, password },
+        },
       });
     } catch (err) {
       console.log(err);
     }
   };
 
-  const changeCurrentTask = id => {
+  const changeCurrentTask = (id) => {
     dispatch({
       type: 'CHANGE_CURRENT_TASK',
-      payload: id
+      payload: id,
     });
   };
 
-  const deleteTask = async id => {
+  const deleteTask = async (id) => {
     try {
       const res = await axios.delete(
         `https://nodebe.herokuapp.com/api/task/${id}`,
         {
-          email: state.user.email
+          email: state.user.email,
         }
       );
 
       dispatch({
         type: 'DELETE_TASK',
-        payload: id
+        payload: id,
       });
     } catch (err) {
       console.log(err);
     }
   };
 
-  const completeTask = async id => {
+  const completeTask = async (id) => {
     try {
       const res = await axios.delete(
         `https://nodebe.herokuapp.com/api/task/${id}`,
         {
-          email: state.user.email
+          email: state.user.email,
         }
       );
 
       dispatch({
         type: 'COMPLETE_TASK',
-        payload: id
+        payload: id,
       });
     } catch (err) {
       console.log(err);
     }
   };
 
-  const addNewTask = async userTask => {
+  const addNewTask = async (userTask) => {
     try {
       const res = await axios.post('https://nodebe.herokuapp.com/api/task/', {
         type: userTask.type,
@@ -179,7 +138,7 @@ export const GlobalProvider = ({ children }) => {
           .replace('AM', '')
           .replace('PM', ''),
         location: userTask.location,
-        email: state.user.email
+        email: state.user.email,
       });
 
       const { task } = res.data;
@@ -190,19 +149,19 @@ export const GlobalProvider = ({ children }) => {
         name: task.name,
         location: task.location,
         day: task.day,
-        time: `${task.time.substring(0, 2)}:${task.time.substring(2, 4)}`
+        time: `${task.time.substring(0, 2)}:${task.time.substring(2, 4)}`,
       };
 
       dispatch({
         type: 'ADD_NEW_TASK',
-        payload: newTask
+        payload: newTask,
       });
     } catch (err) {
       console.log(err);
     }
   };
 
-  const editTask = async userTask => {
+  const editTask = async (userTask) => {
     try {
       const res = await axios.patch(
         `https://nodebe.herokuapp.com/api/task/${userTask.id}`,
@@ -212,7 +171,7 @@ export const GlobalProvider = ({ children }) => {
           day: userTask.day,
           time: userTask.time.replace(':', ''),
           location: userTask.location,
-          email: state.user.email
+          email: state.user.email,
         }
       );
 
@@ -224,12 +183,12 @@ export const GlobalProvider = ({ children }) => {
         name: task.name,
         location: task.location,
         day: task.day,
-        time: `${task.time.substring(0, 2)}:${task.time.substring(2, 4)}`
+        time: `${task.time.substring(0, 2)}:${task.time.substring(2, 4)}`,
       };
 
       dispatch({
         type: 'EDIT_TASK',
-        payload: newTask
+        payload: newTask,
       });
     } catch (err) {
       console.log(err);
@@ -247,7 +206,7 @@ export const GlobalProvider = ({ children }) => {
         completeTask,
         addNewTask,
         editTask,
-        getTasks
+        getTasks,
       }}
     >
       {children}

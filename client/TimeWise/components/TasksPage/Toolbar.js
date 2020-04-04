@@ -1,3 +1,8 @@
+/*
+ * Code for the top toolbar which has the hamburger menu button to open the sidebar
+ */
+
+// Import statements
 import React, { useState } from 'react';
 import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -5,9 +10,11 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../../styles';
 import Sidebar from '../Sidebar/Sidebar';
 
+// Component begins here
 Toolbar = ({ navigation }) => {
   const [visible, toggleVisible] = useState(false);
 
+  // UI of the component
   return (
     <View style={styles.toolbar}>
       <TouchableWithoutFeedback

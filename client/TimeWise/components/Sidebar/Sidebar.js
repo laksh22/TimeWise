@@ -1,3 +1,8 @@
+/*
+ * Code for sidebar which has the option to logout or refresh the schedule
+ */
+
+// Import statements
 import React, { useContext } from 'react';
 import { Modal, Text, View, TouchableWithoutFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -5,11 +10,13 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { GlobalContext } from '../../context/GlobalState';
 import styles from '../../styles';
 
-const Sidebar = props => {
+// Component begins here
+const Sidebar = (props) => {
   const { visible, closeModal, navigation } = props;
 
   const { getTasks, user } = useContext(GlobalContext);
 
+  // UI of the component
   return (
     <Modal
       transparent={true}
