@@ -6,7 +6,7 @@ Code for CZ3002 - Advanced Software Engineering
 
 ## Installation
 
-The published application can be found at [this link](https://www.google.com)
+The published application can be found at [this link](https://expo.io/@/timewise)
 
 If you would like to run the code locally, these are the steps you need to take:
 
