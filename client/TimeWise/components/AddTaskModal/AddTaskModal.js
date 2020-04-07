@@ -22,7 +22,7 @@ import styles from '../../styles';
 const AddTaskModal = (props) => {
   const { visible, closeModal, day } = props;
 
-  const { tasks, addNewTask } = useContext(GlobalContext);
+  const { user, tasks, addNewTask } = useContext(GlobalContext);
 
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
   const [time, setTime] = useState('02:00PM');
@@ -106,6 +106,25 @@ const AddTaskModal = (props) => {
     }
   };
 
+  const getNextDayOfTheWeek = (
+    dayName,
+    excludeToday = true,
+    refDate = new Date()
+  ) => {
+    const dayOfWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'].indexOf(
+      dayName.slice(0, 3).toLowerCase()
+    );
+
+    if (dayOfWeek < 0) return;
+    refDate.setDate(
+      refDate.getDate() +
+        !!excludeToday +
+        ((dayOfWeek + 7 - refDate.getDay() - !!excludeToday) % 7)
+    );
+
+    return refDate;
+  };
+
   // UI of the component
   return (
     <Modal
@@ -133,8 +152,9 @@ const AddTaskModal = (props) => {
                   type: 'task',
                   name: name,
                   location: 'Not Specified',
-                  day: day,
+                  day: getNextDayOfTheWeek(day, false),
                   time: time,
+                  email: user.email,
                 });
                 closeModal();
               }}

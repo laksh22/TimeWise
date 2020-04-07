@@ -32,6 +32,21 @@ export const GlobalProvider = ({ children }) => {
     'Sunday',
   ];
 
+  const monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
   // Different actions which are called by the View. Each Action is Dispatched to the Reducer which changes the Store
   const getTasks = async (email, password) => {
     await dispatch({
@@ -49,13 +64,14 @@ export const GlobalProvider = ({ children }) => {
       var hasNumber = /\d/;
       for (const task of res.data.allTasks) {
         if (hasNumber.test(task.day)) {
-          var taskDay = new Date(task.day);
           var newTask = {
             id: task._id,
             type: task.type,
             name: task.name,
             location: task.location,
-            day: dayNames[taskDay.getDay()],
+            day: dayNames.filter((day) =>
+              day.startsWith(task.day.slice(0, 3))
+            )[0],
             time: `${task.time.substring(0, 2)}:${task.time.substring(2, 4)}`,
           };
         } else {
@@ -129,10 +145,25 @@ export const GlobalProvider = ({ children }) => {
 
   const addNewTask = async (userTask) => {
     try {
+      var hasNumber = /\d/;
+      var taskDate;
+      if (hasNumber.test(userTask.day)) {
+        taskDate = new Date(userTask.day);
+
+        const taskDay = dayNames[taskDate.getDay()].slice(0, 3);
+        const taskMonth = monthNames[taskDate.getMonth()].slice(0, 3);
+        const taskDayOfMonth = taskDate.getDate();
+        const taskYear = taskDate.getFullYear();
+
+        taskDate = `${taskDay} ${taskMonth} ${taskDayOfMonth} ${taskYear}`;
+      } else {
+        taskDate = userTask.day;
+      }
+
       const res = await axios.post('https://nodebe.herokuapp.com/api/task/', {
         type: userTask.type,
         name: userTask.name,
-        day: userTask.day,
+        day: taskDate,
         time: userTask.time
           .replace(':', '')
           .replace('AM', '')
@@ -148,7 +179,7 @@ export const GlobalProvider = ({ children }) => {
         type: task.type,
         name: task.name,
         location: task.location,
-        day: task.day,
+        day: dayNames.filter((day) => day.startsWith(task.day.slice(0, 3)))[0],
         time: `${task.time.substring(0, 2)}:${task.time.substring(2, 4)}`,
       };
 
@@ -163,12 +194,27 @@ export const GlobalProvider = ({ children }) => {
 
   const editTask = async (userTask) => {
     try {
+      var hasNumber = /\d/;
+      var taskDate;
+      if (hasNumber.test(userTask.day)) {
+        taskDate = new Date(userTask.day);
+
+        const taskDay = dayNames[taskDate.getDay()].slice(0, 3);
+        const taskMonth = monthNames[taskDate.getMonth()].slice(0, 3);
+        const taskDayOfMonth = taskDate.getDate();
+        const taskYear = taskDate.getFullYear();
+
+        taskDate = `${taskDay} ${taskMonth} ${taskDayOfMonth} ${taskYear}`;
+      } else {
+        taskDate = userTask.day;
+      }
+
       const res = await axios.patch(
         `https://nodebe.herokuapp.com/api/task/${userTask.id}`,
         {
           type: userTask.type,
           name: userTask.name,
-          day: userTask.day,
+          day: taskDate,
           time: userTask.time.replace(':', ''),
           location: userTask.location,
           email: state.user.email,
@@ -182,7 +228,7 @@ export const GlobalProvider = ({ children }) => {
         type: task.type,
         name: task.name,
         location: task.location,
-        day: task.day,
+        day: dayNames.filter((day) => day.startsWith(task.day.slice(0, 3)))[0],
         time: `${task.time.substring(0, 2)}:${task.time.substring(2, 4)}`,
       };
 

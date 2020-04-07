@@ -44,6 +44,25 @@ const EditTaskModal = (props) => {
     setTime(`${hours}:${minutes} `);
   };
 
+  const getNextDayOfTheWeek = (
+    dayName,
+    excludeToday = true,
+    refDate = new Date()
+  ) => {
+    const dayOfWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'].indexOf(
+      dayName.slice(0, 3).toLowerCase()
+    );
+
+    if (dayOfWeek < 0) return;
+    refDate.setDate(
+      refDate.getDate() +
+        !!excludeToday +
+        ((dayOfWeek + 7 - refDate.getDay() - !!excludeToday) % 7)
+    );
+
+    return refDate;
+  };
+
   // UI of the component
   return (
     <Modal
@@ -72,7 +91,7 @@ const EditTaskModal = (props) => {
                   time: time,
                   id: task.id,
                   location: task.location,
-                  day: task.day,
+                  day: getNextDayOfTheWeek(task.day, false),
                   type: task.type,
                 };
                 editTask(editedTask);
