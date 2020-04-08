@@ -13,6 +13,10 @@ const classSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  email: {
+    type: String,
+    required: false,
+  },
   location: {
     type: String,
     required: true,
