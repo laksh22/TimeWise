@@ -1,10 +1,15 @@
+/*
+ * Code for modal which shows the information about a task such as its name, time, location, and type
+ */
+
+// Import statements
 import React, { useState, useContext } from 'react';
 import {
   Modal,
   Text,
   View,
   TouchableOpacity,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -13,12 +18,15 @@ import styles from '../../styles';
 import Tag from '../Misc/Tag';
 import EditTaskModal from '../EditTaskModal/EditTaskModal';
 
-const TaskOverviewModal = props => {
+// Import statements
+const TaskOverviewModal = (props) => {
   const { visible, closeModal } = props;
-  const [editTaskvisible, toggleVisible] = useState(false);
 
   const { task, deleteTask } = useContext(GlobalContext);
 
+  const [editTaskvisible, toggleVisible] = useState(false);
+
+  // UI of the component
   return (
     <Modal
       animationType="fade"
@@ -51,7 +59,7 @@ const TaskOverviewModal = props => {
               </View>
             </TouchableWithoutFeedback>
 
-            <TouchableWithoutFeedback onPress={() => deleteTask(task.name)}>
+            <TouchableWithoutFeedback onPress={() => deleteTask(task.id)}>
               <Icon name="trash" color="white" size={25}></Icon>
             </TouchableWithoutFeedback>
           </View>

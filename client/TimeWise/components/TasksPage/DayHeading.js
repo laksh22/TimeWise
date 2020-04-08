@@ -1,17 +1,23 @@
-import React, { useState, useContext } from 'react';
+/*
+ * Parent: Tasks Page
+ * Code for heading for each day which contains the day name and a button to add a new task for that day
+ */
+
+// Import statements
+import React, { useState } from 'react';
 import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import styles from '../../styles';
-import { GlobalContext } from '../../context/GlobalState';
 import AddTaskModal from '../AddTaskModal/AddTaskModal';
 
-
-const DayHeading = props => {
+// Component begins here
+const DayHeading = (props) => {
   const { day, date } = props;
+
   const [visible, toggleVisible] = useState(false);
 
-
+  // UI of the component
   return (
     <View style={styles.dayHeading}>
       <View style={styles.dayHeadingDetails}>

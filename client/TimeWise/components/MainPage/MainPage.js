@@ -1,15 +1,16 @@
+/*
+ * Code for splashscreen page with TimeWise logo
+ */
+
+// Import statements
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableHighlight
-} from 'react-native';
+import { Text, View, Image, TouchableHighlight } from 'react-native';
 
 import styles from '../../styles';
 
+// Component begins here
 const MainPage = ({ navigation }) => {
+  // UI of the component
   return (
     <View style={styles.homePage}>
       <Image
