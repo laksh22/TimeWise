@@ -1,3 +1,8 @@
+/*
+ * Code for modal which allows user to specify the time and name of a new task and add it
+ */
+
+// Import statements
 import React, { useState, useContext, useEffect } from 'react';
 import {
   Modal,
@@ -6,7 +11,6 @@ import {
   View,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  Button
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import DateTimePicker from 'react-native-modal-datetime-picker';
@@ -14,12 +18,14 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import { GlobalContext } from '../../context/GlobalState';
 import styles from '../../styles';
 
-const AddTaskModal = props => {
+// Component begins here
+const AddTaskModal = (props) => {
   const { visible, closeModal, day } = props;
-  const { tasks, addNewTask } = useContext(GlobalContext);
+
+  const { user, tasks, addNewTask } = useContext(GlobalContext);
 
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
-  const [time, setTime] = useState('2:00PM');
+  const [time, setTime] = useState('02:00PM');
   const [name, setName] = useState('Task Name');
   const [timeSamples, setTimeSamples] = useState([]);
 
@@ -38,34 +44,35 @@ const AddTaskModal = props => {
     '06:00PM',
     '07:00PM',
     '08:00PM',
-    '09:00PM'
+    '09:00PM',
   ];
-  const dayTasks = tasks.filter(task => task.day == day);
+  const dayTasks = tasks.filter((task) => task.day == day);
 
   useEffect(() => {
     getTimeSuggestions();
   }, []);
 
-  const onChange = nameValue => setName(nameValue);
+  const onChange = (nameValue) => setName(nameValue);
 
   const toggleTimePicker = () => {
     setTimePickerVisibility(!isTimePickerVisible);
   };
 
-  const handleConfirm = dateTime => {
+  const handleConfirm = (dateTime) => {
     toggleTimePicker();
 
     var hours = dateTime.getHours();
     var minutes = dateTime.getMinutes();
-    var ampm = hours > 12 ? 'PM' : 'AM';
-    setTime(`${hours}:${minutes}${ampm}`);
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
+    hours = hours < 10 ? `0${hours}` : hours;
+    setTime(`${hours}:${minutes} `);
   };
 
-  const getRandomInt = max => {
+  const getRandomInt = (max) => {
     return Math.floor(Math.random() * Math.floor(max));
   };
 
-  const checkTime = time => {
+  const checkTime = (time) => {
     var i;
     for (i = 0; i < dayTasks.length; i++) {
       if (time == dayTasks[i].time) {
@@ -76,7 +83,7 @@ const AddTaskModal = props => {
     return time;
   };
 
-  const checkRepeat = time => {
+  const checkRepeat = (time) => {
     if (timeSamples.length > 0) {
       var i;
       for (i = 0; i < timeSamples.length; i++) {
@@ -99,6 +106,26 @@ const AddTaskModal = props => {
     }
   };
 
+  const getNextDayOfTheWeek = (
+    dayName,
+    excludeToday = true,
+    refDate = new Date()
+  ) => {
+    const dayOfWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'].indexOf(
+      dayName.slice(0, 3).toLowerCase()
+    );
+
+    if (dayOfWeek < 0) return;
+    refDate.setDate(
+      refDate.getDate() +
+        !!excludeToday +
+        ((dayOfWeek + 7 - refDate.getDay() - !!excludeToday) % 7)
+    );
+
+    return refDate;
+  };
+
+  // UI of the component
   return (
     <Modal
       animationType="fade"
@@ -125,8 +152,9 @@ const AddTaskModal = props => {
                   type: 'task',
                   name: name,
                   location: 'Not Specified',
-                  day: day,
-                  time: time
+                  day: getNextDayOfTheWeek(day, false),
+                  time: time,
+                  email: user.email,
                 });
                 closeModal();
               }}

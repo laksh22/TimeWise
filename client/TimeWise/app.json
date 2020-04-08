@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Blank Template",
-    "slug": "TimeWise",
-    "privacy": "public",
+    "name": "TimeWise",
+    "slug": "timewise",
+    "privacy": "unlisted",
     "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
@@ -25,6 +25,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "To-Do list application for NTU students which automatically imports the user's timetable",
+    "githubUrl": "https://github.com/laksh22/TimeWise"
   }
 }

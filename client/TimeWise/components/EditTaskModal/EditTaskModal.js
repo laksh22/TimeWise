@@ -1,3 +1,8 @@
+/*
+ * Code for modal which allows user to edit the time and name of an existing task
+ */
+
+// Import statements
 import React, { useState, useContext } from 'react';
 import {
   Modal,
@@ -5,7 +10,7 @@ import {
   TextInput,
   View,
   TouchableOpacity,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import DateTimePicker from 'react-native-modal-datetime-picker';
@@ -13,7 +18,8 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import { GlobalContext } from '../../context/GlobalState';
 import styles from '../../styles';
 
-const EditTaskModal = props => {
+// Component begins here
+const EditTaskModal = (props) => {
   const { visible, closeModal } = props;
 
   const { task, editTask } = useContext(GlobalContext);
@@ -22,21 +28,42 @@ const EditTaskModal = props => {
   const [time, setTime] = useState(task.time);
   const [name, setName] = useState(task.name);
 
-  const onChange = nameValue => setName(nameValue);
+  const onChange = (nameValue) => setName(nameValue);
 
   const toggleTimePicker = () => {
     setTimePickerVisibility(!isTimePickerVisible);
   };
 
-  const handleConfirm = dateTime => {
+  const handleConfirm = (dateTime) => {
     toggleTimePicker();
 
     var hours = dateTime.getHours();
     var minutes = dateTime.getMinutes();
-    var ampm = hours > 12 ? 'PM' : 'AM';
-    setTime(`${hours}:${minutes}${ampm}`);
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
+    hours = hours < 10 ? `0${hours}` : hours;
+    setTime(`${hours}:${minutes} `);
   };
 
+  const getNextDayOfTheWeek = (
+    dayName,
+    excludeToday = true,
+    refDate = new Date()
+  ) => {
+    const dayOfWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'].indexOf(
+      dayName.slice(0, 3).toLowerCase()
+    );
+
+    if (dayOfWeek < 0) return;
+    refDate.setDate(
+      refDate.getDate() +
+        !!excludeToday +
+        ((dayOfWeek + 7 - refDate.getDay() - !!excludeToday) % 7)
+    );
+
+    return refDate;
+  };
+
+  // UI of the component
   return (
     <Modal
       animationType="fade"
@@ -59,9 +86,15 @@ const EditTaskModal = props => {
             <Text style={styles.boldHeadingText}>Edit Task</Text>
             <TouchableWithoutFeedback
               onPress={() => {
-                task.name = name;
-                task.time = time;
-                editTask(task);
+                const editedTask = {
+                  name: name,
+                  time: time,
+                  id: task.id,
+                  location: task.location,
+                  day: getNextDayOfTheWeek(task.day, false),
+                  type: task.type,
+                };
+                editTask(editedTask);
                 closeModal();
               }}
             >
@@ -70,6 +103,7 @@ const EditTaskModal = props => {
           </View>
           <View style={styles.container}>
             <TextInput
+              defaultValue={task.name}
               placeholder={task.name}
               style={styles.text}
               onChangeText={onChange}

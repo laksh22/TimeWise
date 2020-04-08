@@ -1,10 +1,18 @@
+/*
+ * Code for tags identifying if a to-do item is a Class or a Task
+ */
+
+// Import statements
 import React from 'react';
-import { Modal, Text, View, Image } from 'react-native';
+import { Text, View } from 'react-native';
 
 import styles from '../../styles';
 
-const Tag = props => {
+// Component begins here
+const Tag = (props) => {
   const borderStyle = props.type == 'class' ? styles.classTag : styles.taskTag;
+
+  // UI of the component
   return (
     <View style={borderStyle}>
       <Text style={styles.text}>
