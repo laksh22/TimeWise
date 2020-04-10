@@ -38,8 +38,8 @@ There are 2 main files of importance and 2 folders of importance:
 The server is implemented with Node (v10), and is using a standard MVC template for code structure. A MongoDB database is deployed with Heroku/mLabs
 
 #### To run locally
-- ``` npm install ```
-- ``` npm start ```
+- ``` npm install ``` to install dependencies
+- ``` npm start ``` to run locally at http://localhost:1000
 
 
 #### To deploy
