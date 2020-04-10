@@ -29,7 +29,6 @@ function seedClass(req, res) {
     var lek = JSON.parse(fs.readFileSync('lekj0004.json', 'utf8'));
     var i;
     for (i = 0; i < lek.length; i++) {
-      // console.log(lek[i])
           const t = new Task({
           _id: mongoose.Types.ObjectId(),
           type: "class",
