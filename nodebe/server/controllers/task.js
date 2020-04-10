@@ -24,7 +24,6 @@ function createTask(req, res) {
 
 
 
-
 // Get all Tasks in the database of all types
 function getAllTasks(req, res){
   Task.find({})
@@ -79,9 +78,8 @@ function getByQuery(req, res){
 }
 
 
-
+// Update task details given ID and new details for task
 function updateTask(req, res) {
-  // Update task details
   const id = req.params.taskId;
   const updateObject = req.body;
   Task.update({ _id:id }, { $set:updateObject })
@@ -101,6 +99,7 @@ function updateTask(req, res) {
     });
 }
 
+// Delete task given ID
 function deleteTask(req, res) {
   const id = req.params.taskId;
   const updateObject = req.body;

@@ -1,11 +1,9 @@
-// const Class = require('../models/class');
 const Task = require('../models/task');
 const mongoose =require('mongoose');
 var fs = require('fs');
 
 
-
-// seed Mock Data into the database from cleaned_classes.json, lekj0004.json
+// seed Mock Task Data into the database from cleaned_classes.json, lekj0004.json
 function seedClass(req, res) {
     var classes = JSON.parse(fs.readFileSync('classes_cleaned.json', 'utf8'));
     var i;

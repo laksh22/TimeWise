@@ -5,6 +5,7 @@ const { getAllClasses, seedClass } = require('../controllers/class');
 
 const router = express.Router();
 
+// API endpoints
 router.get('/task', getAllTasks);
 router.post('/task', createTask);
 router.get('/seed', seedClass);

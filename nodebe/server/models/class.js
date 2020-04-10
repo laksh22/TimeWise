@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
+
+// Depreciated,unused un latest version
 const classSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
   course: {

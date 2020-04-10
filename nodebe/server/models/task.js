@@ -5,7 +5,7 @@ mongoose.Promise = global.Promise;
 
 const classSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
-  type: {
+  type: { // CUrrent: Type "class" or "task"
     type: String,
     required: true,
   },
@@ -32,7 +32,6 @@ const classSchema = new mongoose.Schema({
 
 });
 
-// "type", "same", "location", "day", "time"
 
 
 module.exports = mongoose.model('Task', classSchema);
