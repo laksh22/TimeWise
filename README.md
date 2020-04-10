@@ -35,7 +35,7 @@ There are 2 main files of importance and 2 folders of importance:
 
 ### Server Code 
 
-The server is implemented with Node (v10), and is using a standard MVC template for code structure. A MongoDB database is deployed with Heroku/mLabs
+The server is implemented with Node (v10), and is using a standard MVC template for code structure. The models folder contains the entities. The code in the controllers folder is responsible for controlling the flow of the application execution. A MongoDB database is deployed with Heroku/mLabs.
 
 #### To run locally
 - ``` npm install ``` to install dependencies
