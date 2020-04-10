@@ -6,6 +6,7 @@ const mongoose =require('mongoose');
 const Task = require('../models/task');
 
 function createTask(req, res) {
+  // add a new task
   const task = new Task({
     _id: mongoose.Types.ObjectId(),
     type: "task",
@@ -15,7 +16,7 @@ function createTask(req, res) {
     time: req.body.time,
     email: req.body.email
   });
-  task.save() // TODO: catch errors
+  task.save() 
   return res.status(201).json({
     task: task
   });
@@ -24,9 +25,8 @@ function createTask(req, res) {
 
 
 
-// Get all Tasks
+// Get all Tasks in the database of all types
 function getAllTasks(req, res){
-  // should return all of type task
   Task.find({})
     // .select('_id title description pubDate link media src author tags')
     .then((allTasks) => {
@@ -81,9 +81,10 @@ function getByQuery(req, res){
 
 
 function updateTask(req, res) {
+  // Update task details
   const id = req.params.taskId;
   const updateObject = req.body;
-  Task.update({ _id:id }, { $set:updateObject }) // pass entire object
+  Task.update({ _id:id }, { $set:updateObject })
     .exec()
     .then(() => {
       res.status(200).json({

@@ -1,18 +1,20 @@
 # Hello
+- This is the backend Node API the client consumes
 
-## TODO:
-- merge class and task models to single Task model
-- check out how long this heroku is allowing my mongo anf server to be deployed
-- write deployment scripts incase i forget the commands lol
-
-## API endpoints:
-- {{HOST}}/api/seed: seed data from json to mongo
-- patch task
-- get all task
-- post task\
+## To run locally
+- ```npm install```
+-``` npm start ```
 
 
-## outstanding bugs:
-- some rows arent seeding porperly
+## To deploy
+- First you would need to setup Heroku and authenticate yourself on your development environment
+- If you would like to setup your own Mongo with Heroku and mLabs, check out [mLabs add-ons](https://elements.heroku.com/addons/mongolab)
+- ```heroku create timewiseapp-89757```
+- ```git push heroku master```
 
-
+## API endpoints
+- GET, POST to  {{HOST}}/api/task
+- PATCH, DELETE to {{HOST}}/api/task/:id
+- GET {{HOST}}/api/class/
+- GET {{HOST}}/api/seed
+- GET {{HOST}}/api/taskquery/?email=example@email.com

@@ -15,18 +15,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-
 const {
   NODE_ENV
 } = process.env;
 
 
-if (NODE_ENV==="DEVELOPMENT"){ // for now LOL
-  var url = `mongodb://lekleklek:password123@ds155934.mlab.com:55934/heroku_xjsknll9`;
-} else {
-  var url = `mongodb://lekleklek:password123@ds155934.mlab.com:55934/heroku_xjsknll9`;
-}
-//  for deployment for now
+// Deployed DB Uri
+var url = `mongodb://lekleklek:password123@ds155934.mlab.com:55934/heroku_xjsknll9`;
+
+//  Connect to mondoDB
 mongoose.connect(url) 
   .then(()=> {
     console.log('Database connected');
@@ -40,7 +37,7 @@ const port = process.env.PORT || 1000;
 
 app.get('/', (req, res) => {
   res.status(200).json({
-    message: 'Hello New world!!v5',
+    message: 'Hello New world!',
   });
 });
 

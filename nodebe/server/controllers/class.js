@@ -1,10 +1,3 @@
-// retrieve all possible classes from a json/mongo
-/// seef
-
-// create task,
-// get tasks created
-
-
 // const Class = require('../models/class');
 const Task = require('../models/task');
 const mongoose =require('mongoose');
@@ -12,11 +5,9 @@ var fs = require('fs');
 
 
 
-// create new post
+// seed Mock Data into the database from cleaned_classes.json, lekj0004.json
 function seedClass(req, res) {
-
     var classes = JSON.parse(fs.readFileSync('classes_cleaned.json', 'utf8'));
-
     var i;
     for (i = 0; i < classes.length; i++) {
           const t = new Task({
@@ -29,8 +20,6 @@ function seedClass(req, res) {
           email: "james101@e.ntu.edu.sg"
       });
 
-
-      // cla.markModified('object')
       t.save(function (err, data) {
         if (err) {
           console.log(err, "error seeding", t);
@@ -40,7 +29,6 @@ function seedClass(req, res) {
     } 
 
     var lek = JSON.parse(fs.readFileSync('lekj0004.json', 'utf8'));
-console.log(lek.length)
     var i;
     for (i = 0; i < lek.length; i++) {
       // console.log(lek[i])
@@ -63,7 +51,6 @@ console.log(lek.length)
           
       })
     }
-        
       return res.status(201).json({
         message: 'classes seeded'
       });
@@ -75,10 +62,9 @@ function filter_type(task) {
 }
 
 
-// Get all Tasks
+// Get all Tasks of type "class"
 function getAllClasses(req, res){
   // return all tasks of type class
-
   Task.find({})
     // .select('_id course courseName date endTime location startTime type') this doesnt work why
     .then((allClass) => {
