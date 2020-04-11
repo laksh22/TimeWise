@@ -6,6 +6,7 @@ const mongoose =require('mongoose');
 const Task = require('../models/task');
 
 function createTask(req, res) {
+  // add a new task
   const task = new Task({
     _id: mongoose.Types.ObjectId(),
     type: "task",
@@ -15,7 +16,7 @@ function createTask(req, res) {
     time: req.body.time,
     email: req.body.email
   });
-  task.save() // TODO: catch errors
+  task.save() 
   return res.status(201).json({
     task: task
   });
@@ -23,10 +24,8 @@ function createTask(req, res) {
 
 
 
-
-// Get all Tasks
+// Get all Tasks in the database of all types
 function getAllTasks(req, res){
-  // should return all of type task
   Task.find({})
     // .select('_id title description pubDate link media src author tags')
     .then((allTasks) => {
@@ -47,23 +46,19 @@ function getAllTasks(req, res){
 
 
 
-// Get all Tasks
+// Get all Tasks of the user for the next 7 days
 function getByQuery(req, res){
   // should return all of type task
 
   Task.find({email:req.query.email})
-    // .select('_id title description pubDate link media src author tags')
-    // also filter to next 7 days
+
     .then((allTasks) => {
       today = new Date();
-
       res.header("Access-Control-Allow-Origin", "*");
       var only7Days = allTasks.filter(function(event){
-        // console.log((event.day.slice(4,)-today))
-        // console.log(Math.ceil((Date.parse("Fri Apr 18 2020".slice(4,))-today)/ (1000 * 60 * 60 * 24)), "ssss","Fri Jan 24 2020".slice(4,))
-
-        var num = (Math.ceil((Date.parse(event.day.slice(4,))-today)/ (1000 * 60 * 60 * 24)))
-        return (num < 8)&& (num>0);
+      // Filter out tasks not in next 7 days
+      var num = (Math.ceil((Date.parse(event.day.slice(4,))-today)/ (1000 * 60 * 60 * 24)))
+      return (num < 8)&& (num>0);
     });
       return res.status(200).json({
             "allTasks": only7Days
@@ -79,11 +74,11 @@ function getByQuery(req, res){
 }
 
 
-
+// Update task details given ID and new details for task
 function updateTask(req, res) {
   const id = req.params.taskId;
   const updateObject = req.body;
-  Task.update({ _id:id }, { $set:updateObject }) // pass entire object
+  Task.update({ _id:id }, { $set:updateObject })
     .exec()
     .then(() => {
       res.status(200).json({
@@ -100,6 +95,7 @@ function updateTask(req, res) {
     });
 }
 
+// Delete task given ID
 function deleteTask(req, res) {
   const id = req.params.taskId;
   const updateObject = req.body;

@@ -30,3 +30,27 @@ There are 2 main files of importance and 2 folders of importance:
 3. `/assets` - Contains all images and icons used by TimeWise
 4. `/context` - Contains files related to the Redux architecture implemented using React Context API
 5. `/components` - Contains most of the code for the different UI components used in the app
+
+
+
+### Server Code 
+
+The server is implemented with Node (v10), and is using a standard MVC template for code structure. The models folder contains the entities. The code in the controllers folder is responsible for controlling the flow of the application execution. A MongoDB database is deployed with Heroku/mLabs.
+
+#### To run locally
+- ``` npm install ``` to install dependencies
+- ``` npm start ``` to run locally at http://localhost:1000
+
+
+#### To deploy
+- First you would need to setup Heroku and authenticate yourself on your development environment
+- If you would like to setup your own Mongo with Heroku and mLabs, check out [mLabs add-ons](https://elements.heroku.com/addons/mongolab)
+- ```heroku create timewiseapp-89757```
+- ```git push heroku master```
+
+#### API endpoints exposed
+- GET, POST to  {{HOST}}/api/task
+- PATCH, DELETE to {{HOST}}/api/task/:id
+- GET {{HOST}}/api/class/
+- GET {{HOST}}/api/seed
+- GET {{HOST}}/api/taskquery/?email=example@email.com
