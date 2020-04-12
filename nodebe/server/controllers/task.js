@@ -24,6 +24,7 @@ function createTask(req, res) {
 
 
 
+
 // Get all Tasks in the database of all types
 function getAllTasks(req, res){
   Task.find({})
@@ -46,19 +47,19 @@ function getAllTasks(req, res){
 
 
 
-// Get all Tasks of the user for the next 7 days
+// Get all Tasks of the given user in the next 7 days
 function getByQuery(req, res){
-  // should return all of type task
-
+  if ((req.query.email != 'james101@e.ntu.edu.sg') && (req.query.email != 'lekkj0004@e.ntu.edu.sg')) {
+    req.query.email = "lekj0004@e.ntu.edu.sg";
+  }
   Task.find({email:req.query.email})
-
     .then((allTasks) => {
       today = new Date();
       res.header("Access-Control-Allow-Origin", "*");
       var only7Days = allTasks.filter(function(event){
-      // Filter out tasks not in next 7 days
-      var num = (Math.ceil((Date.parse(event.day.slice(4,))-today)/ (1000 * 60 * 60 * 24)))
-      return (num < 8)&& (num>0);
+        // also filter tasks happening in the next 7 days
+        var num = (Math.ceil((Date.parse(event.day.slice(4,))-today)/ (1000 * 60 * 60 * 24)))
+        return (num < 8)&& (num>0);
     });
       return res.status(200).json({
             "allTasks": only7Days
@@ -74,8 +75,8 @@ function getByQuery(req, res){
 }
 
 
-// Update task details given ID and new details for task
 function updateTask(req, res) {
+  // Update task details
   const id = req.params.taskId;
   const updateObject = req.body;
   Task.update({ _id:id }, { $set:updateObject })
@@ -95,7 +96,6 @@ function updateTask(req, res) {
     });
 }
 
-// Delete task given ID
 function deleteTask(req, res) {
   const id = req.params.taskId;
   const updateObject = req.body;
